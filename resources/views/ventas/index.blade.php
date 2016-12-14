@@ -3,8 +3,9 @@
 @section('content')
 <div>
 	<div class="pull-right hidden-print">
-		<a  href="{{ url('/venta/create') }}" class="btn btn-success" title="Nuevo">
-			<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
+		<a  href="{{ url('/venta/create') }}" class="btn btn-primary" title="Imprimir"><span class="fa fa-print"></span> Imprimir</a>
+		<a  href="{{ url('/venta/create') }}" class="btn btn-warning" title="Cancelar"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+		<a  href="{{ url('/venta/create') }}" class="btn btn-success" title="Nuevo"><span class="glyphicon glyphicon-plus"></span> Nuevo</a>
 		</div>
 		<h1>Ventas</h1>
 		<hr>	
@@ -12,11 +13,23 @@
 
 
 	<!-- Contenedor-->
-	<div class="container-fluid">
+
 		<form name="" id="" action="" method="POST">
 			
-			<div class="table-responsive">
-				<div class="content-fluid">
+			<table class="table table-bordered">
+				<thead class="well">
+					<th width="10%">Sel</th>
+					<th width="48%">Producto</th>
+					<th width="13%">Cant.</th>
+					<th width="13%">P/U</th>
+					<th width="13%">Total</th>
+				</thead>
+				<tbody>
+
+				</tbody>	
+			</table>
+
+				<div class="container">
 					<table class="table-hover">
 						<thead>
 							<tr>
@@ -31,9 +44,9 @@
 
 						</tbody>	
 					</table>
-				</div><br>
+				
 
-				<div>
+			
 					<table>
 						<tfoot>
 							<tr>

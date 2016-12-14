@@ -30,7 +30,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="./" title="Punto de Venta"><i class="fa fa-archive"></i> Punto de Venta</a>
+					<a class="navbar-brand" href="./" title="Punto de Venta"><i class="glyphicon glyphicon-home"></i> Punto de Venta</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
