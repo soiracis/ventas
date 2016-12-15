@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class Empresa extends Request {
+class EmpresaRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -23,9 +23,9 @@ class Empresa extends Request {
 	{
 		return [
 			
-			//"id_empresa"=>"required|unique:empresa,id_empresa,".$this->input('id_empresa').",id_empresa|min:6",
-			//"nombre"=>"required",
-			//"localidad"=>"required"
+			"id_empresa"=>"required|unique:empresa,id_empresa,".$this->input('id_empresa').",id_empresa|min:6",
+			"nombre"=>"required",
+			"localidad"=>"required"
 		];
 	}
 

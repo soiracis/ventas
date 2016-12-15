@@ -53,10 +53,8 @@ class ProductoController extends Controller
         if(Request::ajax())
         {
             //Busca el la base de datos segun el ID
-
             //regresa la informacion del producto
             return Response::json(array('nombre' => 'sabritas', 'precio' => '56.00'));
-
         }
     }
 

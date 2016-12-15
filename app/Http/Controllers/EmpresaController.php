@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\EmpresaRequest;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request; 
 // Modelo Empresa
 use App\Empresa;
+
 //controla los errores
 use Exception;
 
@@ -27,7 +29,7 @@ class EmpresaController extends Controller {
 		//Enviamos esos registros a la vista
 		$empresa = Empresa::all();
 
-		$empresa = Empresa::paginate();
+		$empresa = Empresa::paginate(5);
 
 		return view('empresa/index',compact('empresa'));
 	}
@@ -49,7 +51,7 @@ class EmpresaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Empresa $emp)
+	public function store(EmpresaRequest $emp)
 	{
 		//Registrar Empresa
 		try{

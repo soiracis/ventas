@@ -16,7 +16,7 @@
 		<div>
 			<div class="row">
 				<div class="col-md-11">
-					<input type="text" id="codigo" class="form-control" placeholder="Codigo del producto"/>
+					
 				</div>
 				<div class="col-md-1">
 					<button type="button" class="btn btn-primary" onClick="buscaProducto()">Buscar</button>
@@ -26,14 +26,20 @@
 			<div class="row">
 				<div class="col-md-2">
 					<div class="form-group">
-						<label>Cantidad</label>
-						<input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cant." onchange="calculaSubtotal()"/>
+						<label>Codigo</label>
+						<input type="text" id="codigo" class="form-control" placeholder="Codigo del producto"/>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-5">
 					<div class="form-group">
 						<label>Descripción del producto</label>
 						<span class="form-control" id="descripcion"></span>
+					</div>
+				</div>
+				<div class="col-md-1">
+					<div class="form-group">
+						<label>Cantidad</label>
+						<input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cant." onchange="calculaSubtotal()"/>
 					</div>
 				</div>
 				<div class="col-md-1">
