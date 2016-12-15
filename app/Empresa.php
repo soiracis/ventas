@@ -6,6 +6,8 @@ class Empresa extends Model
 {
     //
     protected $table = 'empresa';
+    protected $primaryKey = 'id_empresa';
+    protected $fillable = ['nombre','direccion','localidad','CP','telefono','RFC','logo'];
     protected $timestamp = false;
 
 }

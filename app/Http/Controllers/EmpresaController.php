@@ -3,8 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
+// Modelo Empresa
 use App\Empresa;
+//controla los errores
+use Exception;
 
 class EmpresaController extends Controller {
 
@@ -21,9 +24,8 @@ class EmpresaController extends Controller {
 	 */
 	public function index()
 	{
-		//Busqueda
+		//Enviamos esos registros a la vista
 		$empresa = Empresa::all();
-		$empresa->toarray();
 
 		$empresa = Empresa::paginate();
 
@@ -37,9 +39,9 @@ class EmpresaController extends Controller {
 	 */
 	public function create()
 	{
-		$usuarios = Usuario::all();
+		$empresa = Empresa::all();
 
-		return view('usuarios.create',compact('usuarios'));
+		return view('empresa.create',compact('empresa'));
 	}
 
 	/**
@@ -47,9 +49,29 @@ class EmpresaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Empresa $emp)
 	{
-		//
+		//Registrar Empresa
+		try{
+			$o = new Empresa();
+	        $o->id_empresa=$emp->input('id_empresa');
+	        $o->nombre=$emp->input('nombre');
+	        $o->direccion=$emp->input('direccion');
+	        $o->localidad=$emp->input('localidad');
+	        $o->CP=$emp->input('CP');
+	        $o->telefono=$emp->input('telefono');
+	        $o->RFC=$emp->input('RFC');
+	        $o->logo=$emp->input('logo');
+	        $o->save();
+
+	    //se notifica
+    	flash()->success('Se ha registrado correctamente.');
+        return redirect()->route('empresa.index');
+		}
+		catch(Exception $e){
+			return "Fatal error -".$e->getMessage();
+		}
+           	
 	}
 
 	/**
@@ -61,6 +83,10 @@ class EmpresaController extends Controller {
 	public function show($id)
 	{
 		//
+		$posts = Empresa::findOrFail($id);
+
+        return view('empresa.show', compact('posts'));
+
 	}
 
 	/**
@@ -72,6 +98,9 @@ class EmpresaController extends Controller {
 	public function edit($id)
 	{
 		//
+		$poste = Empresa::find($id);
+
+		return view('empresa.edit', compact('poste'));
 	}
 
 	/**
@@ -80,9 +109,14 @@ class EmpresaController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Empresa $emp)
 	{
 		//
+		$input = array_except($emp->Input(),array('_token','_method','id_empresa'));
+        Rubro::where('id_empresa',$emp->Input('id_empresa'))->update($input);
+
+        flash()->success('Se ha guardado los cambios correctamente.');
+        return redirect()->route('empresa.index');
 	}
 
 	/**
@@ -94,6 +128,17 @@ class EmpresaController extends Controller {
 	public function destroy($id)
 	{
 		//
+		try{
+			$o = Empresa::findOrFail($id);
+	        $o->delete();
+
+	        flash()->success('Se ha eleminado correctamente.');
+	        return redirect()->route('empresa.index');
+		}	
+		catch (Exception $e){
+			return "Fatal error -".$e->getMessage();
+		}
+        
 	}
 
 }
