@@ -20,3 +20,4 @@ Route::get('/', 'HomeController@index');
 
 Route::resource('empresa', 'EmpresaController');
 Route::resource('ventas', 'VentasController');
+Route::resource('producto', 'ProductoController');
