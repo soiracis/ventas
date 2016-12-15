@@ -3,8 +3,8 @@
 @section('content')
 	<div>
 		<div class="pull-right hidden-print">
-			<a  href="{{ url('/venta/create') }}" class="btn btn-success" title="Nuevo">
-				<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
+			<a  href="{{ url('/ventas') }}" class="btn btn-success" title="Nueva venta">
+				<span class="glyphicon glyphicon-plus"></span> Nueva venta</a>
 			</div>
 			<h1>Ventas</h1>
 			<hr>	
@@ -15,31 +15,24 @@
 	<div class="container">
 		<div>
 			<div class="row">
-				<div class="col-md-11">
-					
-				</div>
-				<div class="col-md-1">
-					<button type="button" class="btn btn-primary" onClick="buscaProducto()">Buscar</button>
-				</div>
-			</div>
-			<br>
-			<div class="row">
 				<div class="col-md-2">
 					<div class="form-group">
 						<label>Codigo</label>
-						<input type="text" id="codigo" class="form-control" placeholder="Codigo del producto"/>
+						<input type="text" id="codigo" class="form-control" placeholder="Codigo del producto" onchange="buscaProducto();" onInput="borrarMensaje();"/>
 					</div>
 				</div>
 				<div class="col-md-5">
 					<div class="form-group">
 						<label>Descripción del producto</label>
-						<span class="form-control" id="descripcion"></span>
+						
+						<input type="text" id="descripcion" class="form-control" placeholder="Descripción del producto" onchange="buscaProducto();" onInput="borrarMensaje();"/>
+						<span id="mensaje"></span>
 					</div>
 				</div>
 				<div class="col-md-1">
 					<div class="form-group">
 						<label>Cantidad</label>
-						<input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cant." onchange="calculaSubtotal()"/>
+						<input type="text" id="cantidad" name="cantidad" class="form-control" placeholder="Cant." onInput="calculaSubtotal()" onChange="calculaSubtotal()" onfocus="this.select();" onmouseup="return false;"/>
 					</div>
 				</div>
 				<div class="col-md-1">
@@ -56,7 +49,7 @@
 				</div>
 				<div class="col-md-1">
 					<br>
-					<button type="button" class="btn btn-success" onClick="agregaProducto()">Agregar</button>
+					<button id="btnAgregar" type="button" class="btn btn-success" onClick="agregaProducto()">Agregar</button>
 				</div>
 				<div class="col-md-1">
 					<br>
@@ -70,7 +63,8 @@
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th width="10%">Sel</th>
+							<th width="10%"></th>
+							<th width="10%">Codigo</th>
 							<th width="48%">Producto</th>
 							<th width="13%">Cant.</th>
 							<th width="13%">P/U</th>
@@ -79,6 +73,7 @@
 					</thead>
 					<tbody id="lista">
 						<tr>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -113,33 +108,58 @@
 
 		//recupera el valor del campo
 		function buscaProducto(){
-			let codigo=document.querySelector('#codigo').value;
-			codigo=codigo.trim();
-			if(codigo.length>0){
-				//si no esta vacio
-				$.get("/producto/"+codigo)
-				.then((data)=>{
-					producto=data;
-					document.querySelector('#descripcion').innerHTML=data.nombre;
-					document.querySelector('#precio').innerHTML=data.precio;
-					let cant=document.querySelector('#cantidad');
-					cant.value=1;
-					//se dispara el evento
-					cant.onchange();
-					//se limpia el codigo
-					document.querySelector('#codigo').value="";
-				})
+			parametros={};
+			if(event.target.id=="codigo"){
+				let codigo=document.querySelector('#codigo').value;
+				codigo=codigo.trim();
+				parametros={codigo:codigo};
+			}
+			if(event.target.id=="descripcion"){
+				let descripcion=document.querySelector('#descripcion').value;
+				descripcion=descripcion.trim();
+				parametros={descripcion:descripcion};
 			}
 			
+			if(Object.keys(parametros).length>0){
+				producto={}
+				$.get("/producto",parametros)
+				.then((data)=>{
+					if(Object.keys(data).length>0){
+						producto=data;
+						document.querySelector('#descripcion').value=data.nombre_producto;
+						document.querySelector('#precio').innerHTML=data.precio_producto;
+						let cant=document.querySelector('#cantidad');
+						cant.value=1;
+
+						if(parametros.descripcion){
+							document.querySelector('#codigo').value=data.codigo_producto;
+						}
+						cant.focus();		
+						//se dispara el evento
+						cant.onchange();	
+						//se limpia el codigo
+						//document.querySelector('#codigo').value="";
+					}
+					else{
+						limpiaProducto();
+						document.querySelector('#mensaje').innerHTML="No encontrado";
+					}
+				})
+			}	
 		}
 
 		//calcula el subtotoal del producto
 		function calculaSubtotal(){
 			let cantidad=document.querySelector('#cantidad').value;
 			if(cantidad>=0){
-				producto.subtotal=producto.precio*cantidad;
+				producto.subtotal=producto.precio_producto*cantidad;
 				producto.cantidad=cantidad;
 				document.querySelector('#subtotal').innerHTML=producto.subtotal;
+				if(producto.subtotal > 0){
+					document.querySelector('#btnAgregar').disabled=false;
+				}else{
+					document.querySelector('#btnAgregar').disabled=true;
+				}
 			}
 		}
 
@@ -162,10 +182,19 @@
 		function limpiaProducto(){
 			producto={};
 			document.querySelector('#subtotal').innerHTML=0;
-			document.querySelector('#descripcion').innerHTML="";
+			document.querySelector('#descripcion').value="";
+			document.querySelector('#codigo').value="";
+			document.querySelector('#codigo').focus();
 			document.querySelector('#precio').innerHTML="0";
 			document.querySelector('#cantidad').value=0;
+
 		}
+
+		//limpia la descripcion del producto
+		function borrarMensaje(){
+			document.querySelector('#mensaje').innerHTML="";
+		}
+
 
 
 		//recorre los elementos de la lista
@@ -193,23 +222,29 @@
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(1);
 				// Append a text node to the cell
-				let valor = document.createTextNode(p.nombre);
+				let valor = document.createTextNode(p.codigo_producto);
 				celda.appendChild(valor);
 
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(2);
 				// Append a text node to the cell
-				valor = document.createTextNode(p.cantidad);
+				valor = document.createTextNode(p.nombre_producto);
 				celda.appendChild(valor);
 
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(3);
 				// Append a text node to the cell
-				valor = document.createTextNode(p.precio);
+				valor = document.createTextNode(p.cantidad);
 				celda.appendChild(valor);
 
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(4);
+				// Append a text node to the cell
+				valor = document.createTextNode(p.precio_producto);
+				celda.appendChild(valor);
+
+				// Insert a cell in the row at index 0
+				celda = newRow.insertCell(5);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.subtotal);
 				celda.appendChild(valor);
