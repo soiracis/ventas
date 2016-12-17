@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
-use Request;
+use Illuminate\Http\Request;
+//use Request;
 use Response;
+use App\Producto;
+use stdClass;
 
 use App\Http\Requests;
 
@@ -15,9 +17,22 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        //regresa la informacion del producto
+        if($request->ajax())
+        {
+            //Busca el la base de datos segun el ID
+            //regresa la informacion del producto
+            if($request->input('codigo'))
+                $p=Producto::where('codigo_producto',$request->input('codigo'))->first();
+            else if($request->input('descripcion'))
+                $p=Producto::where('nombre_producto', 'like', '%' . $request->input('descripcion') . '%')->first();
+            else
+                $p=new stdClass();
+            return Response::json($p);
+        }
     }
 
     /**
@@ -49,13 +64,6 @@ class ProductoController extends Controller
      */
     public function show($id, Request $request)
     {
-        //regresa la informacion del producto
-        if(Request::ajax())
-        {
-            //Busca el la base de datos segun el ID
-            //regresa la informacion del producto
-            return Response::json(array('nombre' => 'sabritas', 'precio' => '56.00'));
-        }
     }
 
     /**
