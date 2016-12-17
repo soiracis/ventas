@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2016 a las 20:20:36
--- Versión del servidor: 10.1.16-MariaDB
--- Versión de PHP: 5.6.24
+-- Tiempo de generación: 16-12-2016 a las 20:21:16
+-- Versión del servidor: 5.6.17
+-- Versión de PHP: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de datos: `puntodeventa`
@@ -26,13 +26,14 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE `categorias` (
-  `id_cat` int(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `id_cat` int(3) NOT NULL AUTO_INCREMENT,
   `titulo_cat` varchar(100) NOT NULL,
   `subcategoria` varchar(100) NOT NULL,
   `visible` varchar(20) NOT NULL,
-  `imagen_cat` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `imagen_cat` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_cat`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -75,10 +76,11 @@ INSERT INTO `categorias` (`id_cat`, `titulo_cat`, `subcategoria`, `visible`, `im
 -- Estructura de tabla para la tabla `ctg_tiposusuario`
 --
 
-CREATE TABLE `ctg_tiposusuario` (
-  `id_TipoUsuario` int(11) NOT NULL,
-  `tx_TipoUsuario` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ctg_tiposusuario` (
+  `id_TipoUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `tx_TipoUsuario` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_TipoUsuario`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `ctg_tiposusuario`
@@ -96,16 +98,17 @@ INSERT INTO `ctg_tiposusuario` (`id_TipoUsuario`, `tx_TipoUsuario`) VALUES
 -- Estructura de tabla para la tabla `empresa`
 --
 
-CREATE TABLE `empresa` (
-  `id_empresa` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `empresa` (
+  `id_empresa` int(10) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(300) NOT NULL,
   `direccion` varchar(300) NOT NULL,
   `localidad` varchar(300) NOT NULL,
   `CP` varchar(300) NOT NULL,
   `telefono` varchar(300) NOT NULL,
   `RFC` varchar(300) NOT NULL,
-  `logo` varchar(300) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `logo` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id_empresa`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `empresa`
@@ -120,8 +123,8 @@ INSERT INTO `empresa` (`id_empresa`, `nombre`, `direccion`, `localidad`, `CP`, `
 -- Estructura de tabla para la tabla `inventario_dia`
 --
 
-CREATE TABLE `inventario_dia` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `inventario_dia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `producto` varchar(100) NOT NULL,
   `codigo` varchar(100) NOT NULL,
   `precio` double NOT NULL,
@@ -135,8 +138,9 @@ CREATE TABLE `inventario_dia` (
   `imagen` varchar(300) NOT NULL,
   `fecha` date NOT NULL,
   `usuario` varchar(200) NOT NULL,
-  `observaciones` varchar(1000) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `observaciones` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -144,8 +148,8 @@ CREATE TABLE `inventario_dia` (
 -- Estructura de tabla para la tabla `inventario_general`
 --
 
-CREATE TABLE `inventario_general` (
-  `id_producto` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `inventario_general` (
+  `id_producto` int(100) NOT NULL AUTO_INCREMENT,
   `producto` varchar(100) NOT NULL,
   `codigo` varchar(100) NOT NULL,
   `precio_distribuidor` double NOT NULL,
@@ -155,8 +159,9 @@ CREATE TABLE `inventario_general` (
   `onzas` double NOT NULL,
   `minimo_almacen` double NOT NULL,
   `area_responsable` varchar(100) NOT NULL,
-  `imagen` varchar(200) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `imagen` varchar(200) NOT NULL,
+  PRIMARY KEY (`id_producto`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=824 ;
 
 --
 -- Volcado de datos para la tabla `inventario_general`
@@ -475,12 +480,14 @@ INSERT INTO `inventario_general` (`id_producto`, `producto`, `codigo`, `precio_d
 -- Estructura de tabla para la tabla `subcategorias`
 --
 
-CREATE TABLE `subcategorias` (
-  `id_subcat` int(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `subcategorias` (
+  `id_subcat` int(50) NOT NULL AUTO_INCREMENT,
   `id_cat_principal` int(50) NOT NULL,
   `titulo_sub` varchar(254) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `img` varchar(254) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `img` varchar(254) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_subcat`),
+  UNIQUE KEY `titulo_sub` (`titulo_sub`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
 
 --
 -- Volcado de datos para la tabla `subcategorias`
@@ -533,12 +540,13 @@ INSERT INTO `subcategorias` (`id_subcat`, `id_cat_principal`, `titulo_sub`, `img
 -- Estructura de tabla para la tabla `tbl_areas`
 --
 
-CREATE TABLE `tbl_areas` (
-  `id_area` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbl_areas` (
+  `id_area` int(10) NOT NULL AUTO_INCREMENT,
   `nom_area` varchar(200) NOT NULL,
   `largo` int(11) NOT NULL,
-  `ancho` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `ancho` int(11) NOT NULL,
+  PRIMARY KEY (`id_area`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `tbl_areas`
@@ -554,11 +562,12 @@ INSERT INTO `tbl_areas` (`id_area`, `nom_area`, `largo`, `ancho`) VALUES
 -- Estructura de tabla para la tabla `tbl_areas_responsables`
 --
 
-CREATE TABLE `tbl_areas_responsables` (
-  `id_area_responsable` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbl_areas_responsables` (
+  `id_area_responsable` int(100) NOT NULL AUTO_INCREMENT,
   `nombre_area_responsable` varchar(100) NOT NULL,
-  `nombre_encargado` varchar(200) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `nombre_encargado` varchar(200) NOT NULL,
+  PRIMARY KEY (`id_area_responsable`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Volcado de datos para la tabla `tbl_areas_responsables`
@@ -580,13 +589,14 @@ INSERT INTO `tbl_areas_responsables` (`id_area_responsable`, `nombre_area_respon
 -- Estructura de tabla para la tabla `tbl_mesas`
 --
 
-CREATE TABLE `tbl_mesas` (
-  `id_mesa` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbl_mesas` (
+  `id_mesa` int(100) NOT NULL AUTO_INCREMENT,
   `nom_mesa` varchar(100) NOT NULL,
   `id_area` int(100) NOT NULL,
   `nom_area` varchar(100) NOT NULL,
-  `status` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `status` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_mesa`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Volcado de datos para la tabla `tbl_mesas`
@@ -616,8 +626,8 @@ INSERT INTO `tbl_mesas` (`id_mesa`, `nom_mesa`, `id_area`, `nom_area`, `status`)
 -- Estructura de tabla para la tabla `tbl_meseros`
 --
 
-CREATE TABLE `tbl_meseros` (
-  `id_mesero` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbl_meseros` (
+  `id_mesero` int(11) NOT NULL AUTO_INCREMENT,
   `tx_nombre` varchar(50) NOT NULL,
   `tx_apellidoPaterno` varchar(50) DEFAULT NULL,
   `tx_apellidoMaterno` varchar(50) DEFAULT NULL,
@@ -627,8 +637,9 @@ CREATE TABLE `tbl_meseros` (
   `tx_username` varchar(50) DEFAULT NULL,
   `dt_registro` datetime DEFAULT NULL,
   `pw` varchar(100) NOT NULL,
-  `imagen` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `imagen` varchar(500) NOT NULL,
+  PRIMARY KEY (`id_mesero`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Volcado de datos para la tabla `tbl_meseros`
@@ -644,8 +655,8 @@ INSERT INTO `tbl_meseros` (`id_mesero`, `tx_nombre`, `tx_apellidoPaterno`, `tx_a
 -- Estructura de tabla para la tabla `tbl_users`
 --
 
-CREATE TABLE `tbl_users` (
-  `id_usuario` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbl_users` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `tx_nombre` varchar(50) NOT NULL,
   `tx_apellidoPaterno` varchar(50) DEFAULT NULL,
   `tx_apellidoMaterno` varchar(50) DEFAULT NULL,
@@ -656,8 +667,10 @@ CREATE TABLE `tbl_users` (
   `id_TipoUsuario` int(11) DEFAULT NULL,
   `dt_registro` datetime DEFAULT NULL,
   `pw` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `imagen` varchar(500) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `imagen` varchar(500) NOT NULL,
+  PRIMARY KEY (`id_usuario`),
+  KEY `id_TipoUsuario` (`id_TipoUsuario`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=76 ;
 
 --
 -- Volcado de datos para la tabla `tbl_users`
@@ -677,8 +690,8 @@ INSERT INTO `tbl_users` (`id_usuario`, `tx_nombre`, `tx_apellidoPaterno`, `tx_ap
 -- Estructura de tabla para la tabla `tickets`
 --
 
-CREATE TABLE `tickets` (
-  `id_venta` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
   `N_venta` int(100) NOT NULL,
   `comandas` varchar(100) NOT NULL,
   `mesa` varchar(100) NOT NULL,
@@ -694,8 +707,9 @@ CREATE TABLE `tickets` (
   `efectivo` double NOT NULL,
   `metodo_pago` varchar(100) NOT NULL,
   `propina` double NOT NULL,
-  `descuento` double NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `descuento` double NOT NULL,
+  PRIMARY KEY (`id_venta`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `tickets`
@@ -714,8 +728,8 @@ INSERT INTO `tickets` (`id_venta`, `N_venta`, `comandas`, `mesa`, `area`, `usuar
 -- Estructura de tabla para la tabla `tickets_cancelados`
 --
 
-CREATE TABLE `tickets_cancelados` (
-  `id_venta` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tickets_cancelados` (
+  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
   `N_venta` int(100) NOT NULL,
   `comandas` varchar(100) NOT NULL,
   `mesa` varchar(100) NOT NULL,
@@ -727,8 +741,9 @@ CREATE TABLE `tickets_cancelados` (
   `tarjeta` double NOT NULL,
   `efectivo` double NOT NULL,
   `metodo_pago` varchar(100) NOT NULL,
-  `propina` double NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `propina` double NOT NULL,
+  PRIMARY KEY (`id_venta`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -736,8 +751,8 @@ CREATE TABLE `tickets_cancelados` (
 -- Estructura de tabla para la tabla `tipo_productos`
 --
 
-CREATE TABLE `tipo_productos` (
-  `id_producto` int(3) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tipo_productos` (
+  `id_producto` int(3) NOT NULL AUTO_INCREMENT,
   `nombre_producto` varchar(100) NOT NULL,
   `codigo_producto` varchar(100) NOT NULL,
   `precio_producto` double NOT NULL,
@@ -762,426 +777,174 @@ CREATE TABLE `tipo_productos` (
   `mostrar_en` varchar(100) NOT NULL,
   `imagen` varchar(100) NOT NULL,
   `subcat` int(20) NOT NULL,
-  `area` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `area` int(10) NOT NULL,
+  PRIMARY KEY (`id_producto`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=518 ;
 
 --
 -- Volcado de datos para la tabla `tipo_productos`
 --
 
 INSERT INTO `tipo_productos` (`id_producto`, `nombre_producto`, `codigo_producto`, `precio_producto`, `cantidad_resta_inventario`, `unidad_medida`, `asignar_a`, `cantidad_resta_inventario2`, `unidad_medida2`, `asignar_a2`, `cantidad_resta_inventario3`, `unidad_medida3`, `asignar_a3`, `cantidad_resta_inventario4`, `unidad_medida4`, `asignar_a4`, `cantidad_resta_inventario5`, `unidad_medida5`, `asignar_a5`, `cantidad_resta_inventario6`, `unidad_medida6`, `asignar_a6`, `mostrar_en`, `imagen`, `subcat`, `area`) VALUES
-(1, 'Copa Buchanas 12', '3000', 110, 0.06, '3', '50196388', 2, 'Pieza', '09217197120', 0, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
-(19, 'Copa Courvoisier vs', '3015', 105, 0.06, '3', '3049197110076', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 17, 1),
-(3, 'Copa Buchanans 18', '3001', 200, 0.06, '3', '50196913', 2, 'Pieza', '09217197120', 0, '0', '7501055300075', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/jarabe natural.jpg', 14, 1),
-(5, 'Copa Buchanans Master', '3002', 116, 0.06, '3', '5000196003774', 2, 'Pieza', '09217197120', 0, '0', '7501055300075', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/jarabe natural.jpg', 14, 1),
-(6, 'Copa Chivas Regal 12 Años', '3003', 110, 0.06, '3', '080432400395', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 1),
-(7, 'Copa Chivas Regal 18 Años', '3004', 200, 0.06, '3', '5000299225028', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 1),
-(9, 'Copa Black Label', '3006', 94, 0.06, '3', '5000267024004', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/', 14, 1),
-(65, 'Anis Sambuca Blanco 700ml', '6025', 726, 0.7, '3', '3035541001213', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(11, 'Copa Red Label', '3006', 72, 0.06, '3', '5000267014074', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 1),
-(12, 'Copa JB', '3008', 66, 0.06, '3', '5010103800310', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 1),
-(13, 'Copa Old Parr 12', '3009', 94, 0.06, '3', '5000281003160', 2, 'Pieza', '09217197120', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 1),
-(14, 'Copa Baileys', '3010', 65, 0.06, '3', '5011013100132', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 15, 1),
-(15, 'Copa Licor Galliano', '3012', 72, 0.06, '3', '8716000967169', 1, '2', '09217197120', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 15, 1),
-(16, 'Copa Licor 43', '3013', 83, 0.06, '3', '8410221110075', 1, '2', '09217197120', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 15, 1),
-(17, 'Copa Frangelico', '3011', 72, 0.06, '3', '8004160660304', 1, '2', '09217197120', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 15, 1),
-(18, 'Copa Strega', '3014', 83, 0.06, '3', '5001', 1, '2', '09217197120', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 15, 1),
-(20, 'Copa Martell vs', '3016', 100, 0.06, '3', '080432403716', 2, 'Pieza', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 17, 1),
-(21, 'Copa Cadenas', '3017', 55, 0.06, '3', '8411183199061', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(22, 'Copa  Chinchon Dulce', '3018', 55, 0.06, '3', '8410023172240', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(23, 'Copa Chinchon  Seco', '3019', 55, 0.06, '3', '8410023172264', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(24, 'Copa Domec Dulce', '3020', 39, 0.06, '3', '7501003692139', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(25, 'Copa Domec Seco', '3021', 39, 0.06, '3', '7501003692146', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(26, 'Copa Sambuca Negro', '3023', 66, 0.06, '3', '8716000966452', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(27, 'Copa Sambuca Blanco', '3022', 61, 0.06, '3', '3035541001213', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 18, 1),
-(28, 'Whisky Buchanan`s 12 750ml', '6001', 1320, 0.75, '3', '50196388', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(29, 'Whisky Buchanan`s 18 750ml', '6002', 2376, 0.75, '3', '50196913', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(30, 'Copa Beefeater', '3024', 83, 0.06, '3', '5000329002216', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 16, 1),
-(31, 'Whisky Buchanan`s Master 750ml', '6003', 1386, 0.75, '3', '5000196003774', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(32, 'Whisky Chivas Regal 12 750ml', '6004', 1320, 0.75, '3', '080432400395', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(33, 'Copa Tanqueray', '3025', 72, 0.06, '3', '5002', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 16, 1),
-(34, 'Whisky Chivas Regal 18 750ml', '6005', 2376, 0.75, '3', '5000299225028', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(36, 'Copa Casillero Del Diablo', '3026', 61, 0.12, '3', '7804320303178', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 20, 1),
-(38, 'Whisky Johnie Walker Red Label 750ml', '6007', 858, 0.75, '3', '5000267014074', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(39, 'Copa Concha y Toro Merlot', '3027', 44, 0.12, '3', '5003', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 20, 1),
-(40, 'Whisky Justerini JB 750ml', '6008', 792, 0.75, '3', '5010103800310', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(41, 'Whisky Old Parr 12 750ml', '6009', 1122, 0.75, '3', '5000281003160', 5, 'Pieza', '0001', 0, '3', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 3, 1),
-(42, 'Licor Bailey`s 750 ml', '6010', 790, 0.75, '3', '5011013100132', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 4, 1),
-(43, 'Licor Frangelico 700ml', '6011', 858, 0.7, '3', '8004160660304', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 4, 1),
-(44, 'Licor Galliano 700 ml', '6012', 858, 0.7, '3', '8716000967169', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 4, 1),
-(45, 'Licor 43 750 ml', '6013', 990, 0.75, '3', '8410221110075', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 4, 1),
-(46, 'Licor Strega 750ml', '6014', 990, 0.75, '3', '5001', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 4, 1),
-(47, 'Cognac Courvoisier V.S.O.P. 700 ml', '6015', 1540, 0.7, '3', '3049197210196', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 6, 1),
-(48, 'Cognac Courvoisier V.S. 700 ml', '6016', 1254, 0.7, '3', '3049197110076', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 6, 1),
-(49, 'Cognac Hennesy V.S.O.P. 700 ml', '6017', 1650, 0.7, '3', '3245990969402', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 6, 1),
-(50, 'Cognac Martell V.S.O.P. 700 ml', '6017', 1540, 0.7, '3', '4607014056847', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 6, 1),
-(51, 'Cognac Martell V.S.700 ml', '6018', 1320, 0.7, '3', '080432403716', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 6, 1),
-(52, 'Copa La Cetto', '3028', 41, 0.12, '3', '5004', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 20, 1),
-(54, 'Copa Absolut Azul', '3030', 72, 0.06, '3', '7312040017010', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(55, 'Copa Absolut Mandarin', '3031', 72, 0.06, '3', '7312040050758', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(56, 'Copa Absolut Mango', '3032', 72, 0.06, '3', '7312040180752', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(57, 'Copa Absolut Raspberry', '3033', 72, 0.06, '3', '7312040040759', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(58, 'Anis Chinchon Dulce 1L', '6019', 660, 1, '3', '8410023172240', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(59, 'Copa Ciroc ', '3034', 110, 0.06, '3', '088076161863', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(60, 'Anis Cadenas 750 ml', '6020', 660, 0.75, '3', '8411183199061', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(61, 'Anis Chinchon Seco 1L', '6021', 660, 1, '3', '8410023172264', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(62, 'Copa Grey Goose', '3035', 101, 0.06, '3', '5010677850209', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(63, 'Anis Domeq Dulce 1L', '6022', 460, 1, '3', '7501003692139', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(64, 'Anis Domeq Seco 1L', '6024', 460, 1, '3', '7501003692146', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(66, 'Anis Sambuca Negro 700ml', '6026', 792, 0.7, '3', '8716000966452', 5, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 33, 1),
-(67, 'Ginebra Beefeater 750ml', '6027', 900, 0.75, '3', '5000329002216', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 5, 1),
-(68, 'Ginebra Tanqueray 750ml', '6028', 858, 0.75, '3', '5002', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 5, 1),
-(69, 'Vino Tinto Casillero del Diablo 750ml', '6029', 550, 0.75, '3', '7804320303178', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '', 9, 1),
-(70, 'Copa Smirnoff', '3036', 44, 0.06, '3', '082000000068', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(71, 'Vino Tinto Concha y Toro 750ml', '6030', 495, 0.75, '3', '5003', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '', 9, 1),
-(72, 'Vino Tinto LaCetto 750ml', '6032', 400, 0.75, '3', '5004', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 9, 1),
-(73, 'Copa Stolichnaya', '3037', 72, 0.06, '3', '4750021000157', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(75, 'Copa Wyborowa', '3038', 66, 0.06, '3', '5900685006050', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 21, 1),
-(76, 'Vodka Absolut Azul 750ml', '6034', 858, 0.75, '3', '7312040017010', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(77, 'Vodka Absolut Mandarin 750ml', '6035', 858, 0.75, '3', '7312040050758', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(79, 'Vodka Absolut Mango 750ml', '6036', 858, 0.75, '3', '7312040180752', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(80, 'Vodka Absolut Raspberry 750ml', '6037', 858, 0.75, '3', '7312040040759', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(81, 'Copa Appleton Estate', '3040', 55, 0.06, '3', '7501035020207', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(82, 'Vodka Ciroc 750ml', '6038', 1320, 0.75, '3', '088076161863', 5, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(83, 'Copa Bacardi Blanco', '3041', 44, 0.06, '3', '7501008613122', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(84, 'Vodka Grey Goose', '6039', 1210, 0.75, '3', '5010677850209', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(85, 'Vodka Smirnoff 750ml', '6040', 528, 0.75, '3', '082000000068', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(86, 'Vodka Stolichnaya 750ml', '6041', 858, 0.75, '3', '4750021000157', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 10, 1),
-(87, 'Vodka Wyborowa 750ml', '6042', 825, 0.75, '3', '5900685006050', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '', 10, 1),
-(88, 'Copa Bacardi Solera', '3042', 55, 0.06, '3', '5006', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(89, 'Ron Appleton Especial 750ml', '6043', 660, 0.75, '3', '7501035020429', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(90, 'Copa Capitan Morgan', '3043', 49, 0.06, '3', '082000747345', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(91, 'Ron Appleton Estate 750ml', '6044', 660, 0.75, '3', '7501035020207', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(92, 'Copa Havana Club 7 AÃƒÂ±os', '3044', 66, 0.06, '3', '8501110080446', 1, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(93, 'Ron Bacardi Blanco 750ml', '6045', 528, 0.75, '3', '7501008613122', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(94, 'Ron Bacardi Solera 750ml', '6046', 660, 0.75, '3', '5006', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(95, 'Copa Flor De CaÃƒÂ±a 7 aÃƒÂ±os', '3044', 60, 0.06, '3', '507', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(96, 'Ron Captain Morgan 750ml', '6047', 594, 0.75, '3', '082000747345', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(98, 'Ron Flor de CaÃƒÂ±a 7 750ml', '6049', 660, 0.75, '3', '507', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(99, 'Copa  Matusalem Clasico', '3047', 50, 0.06, '3', '7501035045019', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 22, 1),
-(100, 'Ron Havana Club 7 aÃƒÂ±os 750ml', '6050', 770, 0.75, '3', '8501110080446', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(102, 'Ron Matusalem ClÃƒÂ¡sico 750ml', '6052', 600, 0.75, '3', '7501035045019', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(103, 'Ron Zacapa 23 750ml', '6053', 1210, 0.75, '3', '5007', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 11, 1),
-(104, 'Copa Magno', '3049', 69, 0.06, '0', '8410337001083', 2, '0', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 23, 1),
-(105, 'Brandy Carlos I 700ml', '6054', 1320, 0.7, '3', '5008', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 12, 1),
-(106, 'Brandy Magno  700ml', '6055', 830, 0.7, '3', '8410337001083', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 12, 1),
-(107, 'Brandy Terry Centebario 700ml', '6056', 726, 0.7, '3', '8410162011028', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 12, 1),
-(108, 'Brandy Torres 5 700ml', '6057', 726, 0.7, '3', '8410113000019', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 12, 1),
-(109, 'Copa Terry Centenario', '3051', 60, 0.06, '0', '8410162011028', 2, '0', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 23, 1),
-(110, 'Brandy Torres 10 700ml', '6058', 924, 0.7, '3', '8410113000071', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 12, 1),
-(111, 'Brandy Torres 20 700ml', '6059', 1265, 0.7, '3', '1001', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 12, 1),
-(112, 'Copa Torres 5', '3052', 60, 0.06, '0', '8410113000019', 2, '0', '09217197120', 0, '0', '7501055300075', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 23, 1),
-(113, 'Tequila Azul 700ml', '6060', 594, 0.7, '3', '7501048840205', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(114, 'Copa Torres 10', '3053', 77, 0.06, '0', '8410113000071', 2, '0', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 23, 1),
-(115, 'Tequila Cazadores Reposado 750ml', '6061', 831, 0.75, '3', '7501171600028', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(116, 'Tequila Centenario Reposado 700ml', '6062', 831, 0.7, '3', '7501048810208', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(117, 'Copa Torres 20', '3054', 105, 0.06, '0', '1001', 2, '0', '09217197120', 0, '0', '7501059276369', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 23, 1),
-(118, 'Tequila Cien AÃƒÂ±os Azul 750ml', '6063', 528, 0.75, '3', '7501005616898', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(119, 'Copa Teq Azul', '3055', 44, 0.06, '0', '7501005616898', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(120, 'Tequila Jose Cuervo Especial 695ml', '6064', 660, 0.695, '0', '7501035010550', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(121, 'Copa Cazadores Reposado', '3056', 70, 0.06, '0', '7501171600028', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(122, 'Copa Centenario Reposado', '3057', 70, 0.06, '0', '7501048810208', 1, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(123, 'Tequila Jose Cuervo Tradicional 695ml', '6065', 924, 0.695, '3', '7501035012028', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(124, 'Tequila Don Julio Blanco 750ml', '6066', 924, 0.75, '0', '674545000018', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(125, 'Tequila Don Julio Reposado 750ml', '6067', 990, 0.75, '3', '674545000049', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(126, 'Tequila Herradura Reposado 700ml', '6068', 990, 0.7, '3', '744607002103', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(127, 'Tequila Hornitos Reposado 700ml', '6069', 858, 0.7, '3', '7501005600750', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(128, 'Tequila Herradura AÃƒÂ±ejo 700ml', '6070', 990, 0.7, '3', '5011', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '../uploads/botellas.jpg', 13, 1),
-(129, 'Copa 100 AÃƒÂ±os Azul', '3058', 44, 0.06, '0', '7501005616898', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(130, 'Brandy Terrry Centenario', '7001', 726, 0.18, '0', '8410162011028', 2, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/', 0, 1),
-(131, 'Copa Cuervo Especial', '3059', 55, 0.06, '0', '7501035010550', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(132, 'Copa Cuervo Tradicional', '3060', 77, 0.06, '3', '7501035012028', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(133, 'Brandy Torres 5', '7002', 726, 0.18, '0', '8410113000019', 2, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/cuba.jpg', 0, 1),
-(134, 'Ron Bacardi Blanco', '7003', 528, 0.18, '0', '7501008613122', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/cuba.jpg', 0, 1),
-(136, 'Ron Captain Morgan', '7004', 594, 0.18, '3', '082000747345', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/botellas.jpg', 0, 1),
-(138, 'Tequila Azul ', '7005', 594, 0.18, '3', '7501048840205', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/botellas.jpg', 0, 1),
-(139, 'Copa Herradura AÃƒÂ±ejo', '3063', 83, 0.06, '0', '5011', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(140, 'Copa Herradura Reposado', '3064', 83, 0.06, '0', '744607002103', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(141, 'Copa Hornitos Reposado', '3065', 72, 0.06, '0', '7501005600750', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 24, 1),
-(142, 'Tequila Cuervo Tradicional', '7006', 77, 0.18, '3', '7501035012028', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/botellas.jpg', 0, 1),
-(144, 'Whisky Johnie Walker Red Label', '7008', 858, 0.18, '3', '5000267014074', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/botellas.jpg', 0, 1),
-(145, 'Vodka Smirnoff ', '7009', 528, 0.18, '3', '082000000068', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/botellas.jpg', 0, 1),
-(146, 'Vodka Stolichnaya', '7010', 858, 0.18, '3', '4750021000157', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '29', '../uploads/botellas.jpg', 0, 1),
-(147, 'Chope Tarro Clara 355ml', '8001', 35, 0.355, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(148, ' Chope Tarro Obscura 355ml', '8002', 35, 0.355, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezao.jpg', 0, 1),
-(149, 'Chope Bola Clara 500ml', '8003', 45, 0.5, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(150, 'Chope Bola Obscura 500ml', '8004', 45, 0.5, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezao.jpg', 0, 1),
-(151, 'Chope Tarro Clara 1L', '8005', 75, 1, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '', 0, 1),
-(152, 'Chope Tarro Obscura 1L', '8006', 75, 1, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '', 0, 1),
-(153, 'Jarra Chope Clara 1600ml', '8007', 150, 1.6, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(154, 'Jarra Chope Obscura 1600ml', '8008', 150, 1.6, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezao.jpg', 0, 1),
-(155, 'Misil Clara 3L', '8009', 250, 3, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(156, 'Misil Obscura 3L', '8010', 250, 3, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezao.jpg', 0, 1),
-(157, 'Triton Clara 5L', '8011', 350, 5, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(158, 'Triton Obscura 5L', '8012', 350, 5, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezao.jpg', 0, 1),
-(159, 'Triton Paquete con Alitas Clara 5L', '8013', 500, 5, '3', '56575859', 20, '2', '114', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(160, 'Triton Paquete con Alitas Obscura 5L', '8014', 500, 5, '3', '1009565656', 20, '2', '114', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cerveza.jpg', 0, 1),
-(161, 'Michelada', '8015', 5, 1, '2', '70809026', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '10', '../uploads/cerveza.jpg', 0, 1),
-(162, 'Cubana', '8016', 5, 1, '2', '70809027', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '10', '../uploads/cerveza.jpg', 0, 1),
-(163, 'Ojos Rojos', '8017', 8, 1, 'Pieza', '70809028', 0, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '10', '../uploads/cerveza.jpg', 0, 1),
-(164, 'Diabla', '8018', 5, 1, '2', '70809029', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '10', '../uploads/cerveza.jpg', 0, 1),
-(165, 'Especial de Camaron', '8019', 50, 0.08, '1', '67672', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '10', '../uploads/cerveza.jpg', 0, 1),
-(166, ' Caballito Teq Azul  ', '3066', 45, 0.06, '3', '7501048840205', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(167, 'Cerveza Corona', '8020', 30, 1, '2', '7501064101410', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(168, 'Cerveza Victoria', '8021', 30, 1, '2', '7501064115400', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(169, 'Cerveza Corona Ligth', '8022', 30, 1, '2', '7501064192562', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(170, 'Cerveza Negra Modelo', '8023', 30, 1, '2', '75027285', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(171, 'Cerveza Modelo Especial', '8024', 30, 1, '2', '75027278', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(172, 'Cerveza Budweisser', '8025', 39, 1, '2', '018200001635', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(173, 'Cerveza Budligth', '6031', 39, 1, '2', '018200002793', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(174, 'Cerveza Odulus', '8050', 39, 1, '2', '018200002267', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', '../uploads/cervezas.jpg', 0, 1),
-(175, 'Caballito Cazadores Reposado', '3067', 63, 0.06, '3', '7501171600028', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(176, 'Ojos Rojos Clara', '9001', 43, 0.355, '3', '56575859', 1, '2', '70809028', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cerveza.jpg', 0, 1),
-(177, 'Ojos Rojos Obscura', '9002', 43, 0.355, '3', '1009565656', 1, '2', '70809028', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cervezao.jpg', 0, 1),
-(178, 'Diabla Chope Clara', '9002', 47, 0.355, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cerveza.jpg', 0, 1),
-(179, 'Diabla Chope Obscura', '9003', 47, 0.355, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cervezao.jpg', 0, 1),
-(180, 'Michelada Especial Clara', '9004', 90, 0.355, '3', '56575859', 0.09, '1', '67672', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cerveza.jpg', 0, 1),
-(181, 'Michelada Especial Obscura', '9005', 90, 0.355, '3', '1009565656', 0.09, '1', '67672', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cervezao.jpg', 0, 1),
-(182, 'Tarro Volteado Clara', '9006', 48, 0.355, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cerveza.jpg', 0, 1),
-(183, 'Tarro Volteado Obscura', '9007', 48, 0.355, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cervezao.jpg', 0, 1),
-(184, 'Tarro Volteado con camarones Clara', '9008', 90, 0.355, '0', '56575859', 0.08, 'Kilogramos', '67672', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cerveza.jpg', 0, 1),
-(185, 'Tarro Volteado con camarones Obscura', '9009', 90, 0.355, '0', '1009565656', 0.08, 'Kilogramos', '67672', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '30', '../uploads/cervezao.jpg', 0, 1),
-(186, 'Caballito Centenario Reposado ', '3057', 63, 0.06, '3', '7501048810208', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(187, 'Caballito 100 AÃƒÂ±os  Azul', '30678', 40, 0.06, '3', '7501005616898', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(188, 'Caballito Cuervo Especial', '3069', 50, 0.06, '3', '7501035010550', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(189, 'Naranjada Natural', '10101', 28, 0.06, '3', '7501043700504', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(190, 'Naranjada Mineral', '10102', 28, 0.06, '0', '7501043700504', 0.12, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(191, 'Limonada', '10103', 28, 0.06, '0', '7501043700504', 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(192, 'Refresco Coca Cola', '10104', 28, 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(193, 'Refresco 7up', '10105', 28, 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(194, 'Refresco Sprite', '10106', 28, 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(195, 'Refresco Squirt', '10107', 28, 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(196, 'Caballito Cuervo Tradicional', '3060', 70, 0.06, '3', '7501035012028', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(197, 'Refresco Mirinda', '10108', 28, 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(198, 'Agua Mineral 355ml', '10109', 28, 1, '0', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(199, 'Caballito Don Julio Blanco ', '3061', 65, 0.06, '3', '674545000018', 0, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(201, 'Caballito Don Julio Reposado ', '3062', 75, 0.06, '3', '674545000049', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(202, 'Agua Embotellada 355ml', '10112', 28, 1, '2', '7501059200067', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(203, 'Jugo Arandano', '991', 30, 0.355, '3', '078742057279', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '', 0, 1),
-(204, 'Caballito Herradura AÃƒÂ±ejo', '3063', 75, 0.06, '3', '5011', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(205, 'Jugo Uva', '992', 30, 0.355, '3', '7501013122145', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(206, 'Jugo Manzana', '993', 30, 0.355, '3', '7501013122190', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(214, 'PiÃ±ada', '998', 45, 0.06, '4', '4002', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(208, 'Jugo Naranja', '994', 30, 0.355, '4', '7501013122138', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(209, 'Jugo Pina', '995', 30, 0.355, '4', '7501013122114', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(210, 'Caballito Herradura Reposado', '3064', 75, 0.06, '3', '744607002103', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(212, 'Caballito Hornitos Reposado', '3065', 65, 0.06, '3', '7501005600750', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/caballito.jpg', 24, 1),
-(213, 'Conga Tropical', '997', 35, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(215, 'Clamato Natural', '999', 40, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '../uploads/bebidas.jpg', 0, 1),
-(216, 'Misil 2x1 Clara', '6000', 250, 6, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/barril.jpg', 0, 1),
-(217, 'Misil 2x1 Obscura', '6001', 250, 6, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/barril.jpg', 0, 1),
-(218, 'Jugo de Carne', '20201', 55, 0.052, '1', '150', 0.038, 'Kilogramos', '4444', 0.0105, 'Kilogramos', '55555', 0.009, 'Litros', '00004', 0.015, 'Kilogramos', '00006', 0.0031, '4', 0, '1', '', 0, 2),
-(219, 'Sopa del Dia', '90901', 38, 0, 'Kilogramos', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '1', '../uploads/comida.jpg', 0, 2),
-(228, 'Margarita 2x1', '0002', 74, 0.12, '3', '7501171600028', 0.06, '4', '7501043700504', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/', 0, 1),
-(221, 'Promocion Alitas', '6002', 5, 1, '2', '114', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alitas.jpg', 0, 2),
-(430, 'Camaron Para Pelar', '1589924', 165, 0.3, 'Kilogramos', '2002', 0.04, '1', '00008', 0.125, '2', '00032', 0.03, '1', '00022', 0.06, '1', '00015', 0.03, '1', 0, '37', '../uploads/', 0, 2),
-(223, 'Cumple Torres 5', '6004', 0, 0.7, '3', '8410113000019', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(224, 'Cumple Tequila Azul', '6005', 0, 0.7, '3', '7501048840205', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(225, 'Cumple Smirnof', '6006', 0, 0.75, '3', '082000000068', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(226, 'Cumple Bacardi Blanco', '6006', 0, 0.75, '2', '7501008613122', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(227, 'Pastel Cumple', '6005', 0, 1, '2', '102938', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/pastel.jpg', 0, 2),
-(229, 'Tarro 2x1 Clara', '0003', 35, 0.71, '3', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/barril.jpg', 0, 1),
-(230, 'Coctel de Camaron Chico', '9010', 80, 0.1, 'Kilogramos', '67671', 0.13, '4', '55555555', 0.06, '1', '00015', 2, '2', '00016', 0, '0', '', 0, '0', 0, '1', '../uploads/comida.jpg', 0, 2),
-(231, 'Tarro 2x1 Obscura', '0005', 35, 0.71, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/barril.jpg', 0, 1),
-(232, 'Coctel de Camaron Grande', '9011', 120, 0.15, '1', '67671', 0.25, '4', '55555555', 0.01, '1', '00015', 2, '2', '00016', 0, '0', '', 0, '0', 0, '1', '../uploads/carne.jpg', 0, 2),
-(234, 'PROM V/S Torres 10', '0006', 1200, 1.4, '3', '8410113000071', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(235, 'PROM V/S Bacardi Blanco', '0007', 650, 1.5, '3', '7501008613122', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(236, 'Mollejas de Res a la Parrilla 300gr', '9013', 95, 0.3, 'Kilogramos', '2004', 0.04, '1', '00008', 0.004, '1', '00011', 0, '0', '', 0, '0', '', 0, '0', 0, '1', '../uploads/comida.jpg', 0, 2),
-(237, 'PROM V/S Etiq. Roja', '0008', 1100, 1.5, '3', '5000267014074', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(238, 'Agua Chile', '9014', 82, 0.13, 'Kilogramos', '67671', 0.13, '1', '00026', 0.03, '1', '00027', 3, '2', '00016', 0.025, '1', '00030', 0.0075, '1', 0, '1', '../uploads/comida.jpg', 0, 2),
-(239, 'PROM V/S Stolichnaya', '0009', 1100, 1.5, '3', '4750021000157', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(240, 'PROM V/S Smirnof', '0009', 650, 1.5, '3', '082000000068', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(241, 'PROM V/S Cuervo Tradicional', '0010', 1200, 1.5, '3', '7501035012028', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(242, 'Lunes Whiskero', '0011', 750, 0.75, '3', '5000267014074', 0.5, 'Kilogramos', '2001', 3, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(243, 'Martes Amigos  Etiq.Roja', '0012', 595, 0.75, '3', '5000267014074', 0.6, '1', '2001', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(244, 'Chorizo Argentino 180gr', '9018', 95, 2, 'Pieza', '2003', 0.09, '1', '00051', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/comida.jpg', 0, 2),
-(245, 'Chistorra 180gr', '9016', 95, 0.18, '1', '107', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/comida.jpg', 0, 2),
-(246, 'Martes Amigos  Torres 5', '0013', 595, 0.75, '3', '8410113000019', 0.6, '1', '2001', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(247, 'Martes Amigos  Teq 100 AÃƒÂ±os', '0014', 595, 0.75, '3', '7501005616898', 0.6, '1', '2001', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '13', '../uploads/alcohol.jpg', 0, 1),
-(248, 'Arrachera a la Parrilla 300gr', '9019', 220, 1, '2', '7595', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/comida.jpg', 0, 2),
-(249, 'Bife de Chorizo 350gr', '9020', 270, 1, '2', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/comida.jpg', 0, 2),
-(251, 'Top Sirlion 350gr', '9021', 270, 1, 'Pieza', '102', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/comida.jpg', 0, 2),
-(253, 'Asado de Tira 400gr', '9024', 300, 2, '2', '103', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/comida.jpg', 0, 2),
-(254, 'Cheesecake Cookie', '0016', 55, 1, '2', '102938', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '8', '../uploads/pastel.jpg', 0, 2),
-(256, '3 Tacos De Arrachera', '80801', 85, 0.15, 'Kilogramos', '2001', 0.035, '1', '00051', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '2', '../uploads/IMG-20150212-WA0001.jpg', 0, 2),
-(257, '3 Tacos Bife', '80802', 90, 0.43, '2', '101', 0.06, 'Kilogramos', '00051', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '2', '../uploads/IMG-20150212-WA0001.jpg', 0, 2),
-(259, 'Chope', '80804', 150, 0.3, 'Kilogramos', '2001', 0.1, 'Kilogramos', '2006', 0.05, '1', '00035', 0, '0', '', 0, '0', '', 0, '0', 0, '2', '../uploads/IMG-20150212-WA0002.jpg', 0, 2),
-(260, 'Ensalada Cesar', '80805', 55, 0.125, '2', '00032', 0.005, '1', '00045', 0.015, '1', '00039', 0.05, '1', '00074', 0, '0', '', 0, '0', 0, '5', '../uploads/IMG-20150212-WA0006.jpg', 0, 2),
-(261, 'Pollo Extra', '80806', 25, 0.1, 'Kilogramos', '106', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '21', '../uploads/pollo.jpg', 0, 2),
-(454, 'Copa Litro Torres 5', '247865', 80, 0.09, '3', '8410113000019', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 39, 1),
-(452, 'Copa  Mezcal Nuestra Soledad ', '12478565', 55, 0.06, '3', '7503011641437', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 38, 1),
-(267, 'Queso Fundido Con Chorizo', '0016', 110, 0.18, 'Kilogramos', '00035', 0.05, '1', '00071', 0.09, '1', '00051', 1.12, '2', '2003', 0.5, '2', '00010', 0, '0', 0, '4', '../uploads/quesos.jpg', 0, 2),
-(268, 'Queso Fundido Con Chistorra', '0017', 110, 0.1, 'Kilogramos', '107', 0.18, '1', '00035', 0.05, '1', '00071', 0.09, '1', '00051', 0, '0', '', 0, '0', 0, '4', '../uploads/quesos.jpg', 0, 2),
-(269, 'Queso fundido Con Arrachera', '0018', 115, 0.1, 'Kilogramos', '2001', 0.18, '1', '00035', 0.05, '1', '00071', 0.09, '1', '00051', 0, '0', '', 0, '0', 0, '4', '../uploads/quesos.jpg', 0, 2),
-(270, 'Hamburguesa 200gr', '0018', 88, 1, 'Pieza', '113', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '12', '../uploads/hamburgesa.jpg', 0, 2),
-(271, 'Papas A La Francesa', '0019', 45, 0.25, 'Kilogramos', '14789', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '32', '', 0, 2),
-(272, 'Banderillas De Salchicha Con Queso Manchego', '0020', 55, 0.07, '1', '00094', 0.1, 'Kilogramos', '00035', 0.18, 'Kilogramos', '14789', 0.05, 'Kilogramos', '00100', 0, '0', '', 0, '0', 0, '32', '../uploads/niÃƒÂ±od.jpg', 0, 2),
-(273, 'Nugets', '0021', 66, 5, '2', '20011', 0.18, '1', '14789', 0.125, '2', '00032', 0, '0', '', 0, '0', '', 0, '0', 0, '32', '../uploads/niÃƒÂ±od.jpg', 0, 2),
-(274, 'Parrillada Chope 1.200 kg', '0022', 450, 0.3, 'Kilogramos', '2001', 0.18, '1', '107', 1, 'Pieza', '103', 0.5, 'Pieza', '106', 1, 'Pieza', '2003', 0.1, '1', 0, '3', '../uploads/IMG-20150212-WA0005.jpg', 0, 2),
-(275, 'Arrachera 1KG', '0023', 550, 1, 'Kilogramos', '2001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '3', '../uploads/IMG-20150212-WA0005.jpg', 0, 2),
-(278, 'Paquete Parrillada 1.200gr Clara', '0026', 650, 0.3, 'Kilogramos', '2001', 0.18, 'Pieza', '107', 1, 'Pieza', '2003', 1, 'Pieza', '103', 5, 'Litros', '56575859', 0.15, '1', 0, '3', '../uploads/IMG-20150212-WA0005.jpg', 0, 2),
-(279, 'Paquete Parrillada 1.200gr Obscura', '0026', 650, 0.3, 'Kilogramos', '2001', 0.18, 'Pieza', '107', 1, 'Pieza', '2003', 1, 'Pieza', '103', 5, 'Litros', '1009565656', 0.15, '1', 0, '3', '../uploads/IMG-20150212-WA0005.jpg', 0, 2),
-(280, 'Plato Botanero', '0030', 190, 5, 'Pieza', '114', 0.13, '1', '2002', 0.3, '1', '123', 0.05, '1', '00054', 0.09, '1', '00036', 0.015, '4', 0, '11', '../uploads/IMG-20150212-WA0007.jpg', 0, 2),
-(281, 'Dedos De Queso', '0031', 88, 0.18, 'Kilogramos', '00054', 0.01, '2', '00032', 0.015, '4', '00086', 0.18, '1', '14789', 0, '0', '', 0, '0', 0, '11', '../uploads/IMG-20150212-WA0007.jpg', 0, 2),
-(282, 'Alitas', '0032', 138, 15, 'Pieza', '114', 0.05, '4', '00004', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '11', '../uploads/IMG-20150212-WA0004.jpg', 0, 2),
-(437, 'Te', '158976', 25, 1, '2', '5872554', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '39', '../uploads/', 0, 1),
-(285, 'Nachos Chope', '202042', 66, 0.15, 'Kilogramos', '098765432', 0.15, '1', '00092', 0.15, '1', '00062', 0.0225, '1', '00054', 0.0075, '1', '00008', 0.0075, '1', 0, '11', 'imagenes/bg1.jpg', 0, 2),
-(293, 'Copa Jonhie Walker Red Label ', '505010', 72, 0.06, 'Litros', '5000267014074', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', 'imagenes/red label.jpg', 3, 1),
-(294, 'Copa Jonhie Walker Black Label', '505011', 94, 0.06, 'Litros', '5000267024004', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', 'imagenes/black label.jpg', 3, 1),
-(295, 'Copa Zacapa 23', '505012', 95, 0.06, 'Litros', '5007', 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', 'imagenes/copas.jpg', 22, 1),
-(488, 'TAMARINDO', '9837264', 0, 0.03, '1', '00008', 0.0018, '1', '55555', 0.0018, '1', '00047', 0.0004, '1', '00009', 0.0006, '2', '00089', 0, '', 0, '46', '../uploads/', 0, 2),
-(298, 'Guarnicion Guacamole', '505015', 40, 0.12, 'Kilogramos', '00015', 0.0075, '1', '00008', 0.0075, '1', '55555', 0.0075, '1', '00054', 0, '0', '', 0, '0', 0, '21', 'imagenes/guacamole.jpg', 0, 2),
-(435, 'Cristaleria Tarro', '4648696', 50, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '44', '../uploads/', 0, 1),
-(434, 'Cristaleria Vaso', '54965', 30, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '44', '../uploads/', 0, 1),
-(433, 'Cristaleria Cenicero', '24756', 30, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '44', '../uploads/', 0, 1),
-(432, 'Cafe Americano', '147932', 25, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '39', '../uploads/', 0, 1),
-(431, 'Cafe Capuchino', '4789423', 35, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '39', '../uploads/', 0, 1),
-(312, 'CHEESCAKE', '90017', 55, 1, '2', '102938', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '8', 'imagenes/POSTRES.jpg', 1, 2),
-(472, 'Capucchinno / baileys', '47796', 65, 0.06, '3', '5011013100132', 0, '2', '7501064101410', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '39', '../uploads/', 0, 1),
-(471, 'limonada a precio', '6872126', 11, 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '45', '../uploads/', 0, 1),
-(470, 'Jugo Arandano litro', '567846', 65, 1, '3', '078742057279', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '31', '../uploads/', 0, 1),
-(322, 'Salmon 200gr', '711', 148, 1, 'Pieza', '20015', 0.1, '1', '00044', 0.1, '1', '00046', 0.03, '1', '00038', 0, '0', '', 0, '0', 0, '37', 'imagenes/maricos.jpg', 0, 2),
-(324, 'Filete De Pescado', '0000040', 110, 2, 'Pieza', '20014', 0.05, '1', '00008', 0.06, '1', '00015', 0.06, '1', '00022', 0, '0', '', 0, '0', 0, '37', 'imagenes/maricos.jpg', 0, 2),
-(329, 'Espagueti A Los 4 Quesos', '0000045', 88, 0.2, 'Kilogramos', '2007', 0.1, '1', '00034', 0.2, '1', '00035', 0.2, '1', '00036', 0.24, '4', '00037', 0.02, '1', 0, '38', 'imagenes/botanas.jpg', 0, 2),
-(330, 'Espagueti A La Bolognesa', '0000046', 95, 0.2, 'Kilogramos', '2007', 0.0075, 'Kilogramos', '00039', 0.015, 'Kilogramos', '00005', 0.15, '3', '222222', 0, '0', '', 0, '0', 0, '38', 'imagenes/botanas.jpg', 0, 2),
-(333, 'Crepas Suzette', '0000056', 65, 1, '2', '0000055', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '8', 'imagenes/botanas.jpg', 2, 2),
-(334, 'Crepas Cajeta', '0000057', 65, 1, '2', '0000055', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '8', 'imagenes/descarga.jpg', 2, 2),
-(335, 'Fresas Jubilee', '0000058', 65, 0.2, '1', '00073', 0.02, '1', '00038', 0.03, '4', '7501043700603', 0.015, '4', '7501013122138', 0.015, '1', '00043', 0, '0', 0, '8', 'imagenes/descarga.jpg', 2, 2),
-(336, 'Tarro clara 1 Lt', '8100', 75, 1, 'Litros', '56575859', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', 'imagenes/tarro.jpg', 0, 1),
-(337, 'Cerveza Leon', '101015', 30, 1, '2', '0002', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', 'imagenes/tarro.jpg', 0, 1),
-(338, 'Margarita Limon', '101016', 74, 0.06, '3', '00459', 0.03, '4', '7501043709705', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 25, 1),
-(339, 'Margarita Mango', '101017', 74, 0.06, '3', '00459', 0.03, '4', '7501043707459', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 25, 1),
-(340, 'Margarita Fresa', '101018', 74, 0.06, '3', '00459', 0.03, '4', '7501043709705', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 25, 1),
-(341, 'Margarita Tamarindo', '101019', 74, 0.06, '3', '00459', 0.03, '4', '7501043709705', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 25, 1),
-(342, 'Limonada Electrica', '101020', 54, 0.03, '3', '7501043707657', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 26, 1),
-(343, 'Cascada', '101021', 86, 0.06, '3', '7501035015203', 0.03, '4', '7501043709354', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 26, 1),
-(344, 'Bull Shoot', '101022', 86, 0.06, '3', '7501035015203', 0.355, '4', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 26, 1),
-(345, 'Platers Punch', '101023', 79, 0.06, '3', '7501043712200', 0, '0', '7501043712200', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', 'imagenes/tarro.jpg', 26, 1),
-(346, 'Splash Disarono', '101024', 86, 0.06, '3', '7501035020320', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 26, 1),
-(347, 'Tequila Sunrise', '101025', 79, 0.06, '3', '00459', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/tarro.jpg', 26, 1),
-(348, 'Kamikase', '101026', 74, 0.06, '3', '7501035015203', 0.03, '4', '7501043709705', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 26, 1);
-INSERT INTO `tipo_productos` (`id_producto`, `nombre_producto`, `codigo_producto`, `precio_producto`, `cantidad_resta_inventario`, `unidad_medida`, `asignar_a`, `cantidad_resta_inventario2`, `unidad_medida2`, `asignar_a2`, `cantidad_resta_inventario3`, `unidad_medida3`, `asignar_a3`, `cantidad_resta_inventario4`, `unidad_medida4`, `asignar_a4`, `cantidad_resta_inventario5`, `unidad_medida5`, `asignar_a5`, `cantidad_resta_inventario6`, `unidad_medida6`, `asignar_a6`, `mostrar_en`, `imagen`, `subcat`, `area`) VALUES
-(349, 'Clamato Preparado', '101027', 67, 0.06, '3', '7501035015203', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 26, 1),
-(350, 'Whisky Shower', '101028', 79, 0.06, '3', '5010752000321', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 26, 1),
-(351, 'Hpnotizame', '101029', 85, 0.06, '3', '736040011064', 0.03, '4', '7501043709354', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 26, 1),
-(352, 'Mojito Clasico', '101030', 63, 0.06, '3', '7501043712200', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 27, 1),
-(353, 'Mojito Estilo Menta Verde', '101031', 72, 0.06, '3', '7501043712200', 0.015, '4', '7501012600262', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 27, 1),
-(354, 'Margarita Don Julio', '101032', 92, 0.06, '3', '674545000049', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 25, 1),
-(355, 'Margarita Cazdores Reposado', '303133', 83, 0.06, '3', '7501171600028', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 25, 1),
-(356, 'Mojito Menta Verde C/Habana Club', '101034', 81, 0.06, '3', '8501110080446', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 27, 1),
-(357, 'Mojito Clasico C/Habana Club', '101035', 77, 0.06, '3', '8501110080446', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 27, 1),
-(358, 'Alfonso XIII', '101036', 49, 0.06, '3', '7501003692368', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(359, 'A.B.C', '101037', 99, 0.03, '3', '7501035020320', 0.03, '4', '5011013100132', 0.03, '4', '080432403716', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(360, 'Orgasmo', '101038', 99, 0.03, '3', '7501035020320', 0.03, '4', '5011013100132', 0.03, '4', '7501003692368', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(361, 'Beso De Angel', '101040', 50, 0.06, '3', '7501003692368', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(362, 'Ruso Blanco', '101041', 60, 0.06, '3', '7501035015203', 0, '4', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(363, 'Ruso Negro', '101042', 60, 0.03, '3', '7501035015203', 0.03, '4', '7501003692368', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(364, 'Lamborghini', '101043', 117, 0.03, '3', '5011013100132', 0.015, '4', '7501043709354', 0.015, '4', '7501043706407', 0.015, '4', '7501003692368', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(365, 'Suspiro De Noche', '101044', 86, 0.03, '3', '7501043707657', 0.015, '4', '7501043708654', 0.03, '4', '089540468655', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(366, 'Dulce Fantasia', '101046', 81, 0.03, '3', '3104691015095', 0.03, '4', '7501043712200', 0.03, '4', '7501043709705', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(367, 'Pasion Roja', '101047', 86, 0.06, '3', '7501048801206', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(368, 'Melody', '101048', 86, 0.03, '3', '7501043707657', 0.03, '4', '736040011064', 0.03, '4', '7501035015203', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(369, 'Sueno verde', '101049', 72, 0.03, '3', '7501012600262', 0.03, '4', '7501035015203', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(370, 'Blue And Red', '101050', 90, 0.06, '3', '736040011064', 0.03, '4', '7501035015203', 0.015, '4', '7501043709354', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(371, 'Tupsi Shoot', '101051', 68, 0.06, '3', '089540468655', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(372, 'Crusta Sawere', '101053', 90, 0.03, '3', '7312040150755', 0.03, '4', '7501043707657', 0.015, '4', '7501012600262', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(373, 'Banana Nova', '101054', 77, 0.03, '3', '7501043708654', 0.03, '4', '7501035015203', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 28, 1),
-(374, 'Carajillo', '101055', 81, 0.06, '3', '8410221110075', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 29, 1),
-(375, 'Cucaracha', '101056', 68, 0.03, '3', '00459', 0.03, '4', '7501003692368', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 29, 1),
-(376, 'Piedra', '101057', 64, 0.03, '3', '00459', 0.03, '4', '7501043706407', 0.015, '4', '7501012600132', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 29, 1),
-(377, 'Sex On The Beach', '101058', 68, 0.06, '3', '7501035015203', 0.015, '4', '7501043707657', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(378, 'Luces De La Habana', '101059', 76, 0.06, '3', '089540468655', 0.015, '4', '7501012600446', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(379, 'Campari Americano', '101060', 69, 0.06, '3', '8000040002509', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 26, 1),
-(380, 'Campari Italiano', '101061', 69, 0.06, '3', '8000040002509', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(381, 'Medias De Seda', '101062', 69, 0.06, '3', '7501035015043', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(382, 'Bloody Mary', '101063', 64, 0.06, '3', '7501035015203', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(383, 'Infu Gin Tonic', '101064', 64, 0.06, '3', '7501035015043', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(384, 'Tom Collins', '101066', 64, 0.06, '3', '7501035015043', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(385, 'PiÃ±a Colada', '101067', 76, 0.06, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', '', 30, 1),
-(386, 'PiÃ±a Colada / Baileys', '101070', 81, 0.06, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', '', 30, 1),
-(387, 'PiÃ±a Colada/ Frangelico', '101071', 99, 0.06, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', '', 30, 1),
-(388, 'Martini Chocolate', '101072', 95, 0.03, '3', '7501035015203', 0.03, '4', '5011013100132', 0.03, '4', '5010677924009', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(389, 'Martini Zarzamora', '101073', 95, 0.03, '3', '7501035015203', 0.03, '4', '8410221110075', 0.03, '4', '5010677924009', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(390, 'Martini Manzana', '101074', 95, 0.06, '3', '7501035015203', 0.03, '4', '5010677924009', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(391, 'Martini Manhattan', '101076', 95, 0.06, '3', '5010752000321', 0.03, '4', '5010677914000', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(392, 'Martini Clasico', '101077', 95, 0.03, '3', '7501035015043', 0.06, '4', '5010677934008', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(393, 'Martini Cosmopolitan', '101078', 95, 0.06, '3', '7501035015203', 0.03, '4', '7501043709705', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(496, 'Copa Carlos l', '3544554', 110, 0.06, '2', '5008', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 23, 1),
-(395, 'Martini  Poseidon', '101079', 95, 0.06, '3', '089540468655', 0.015, '4', '7501043709354', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(396, 'Martini Perfecto', '101080', 95, 0.045, '3', '5010677934008', 0.045, '4', '5010677914000', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(397, 'Martini Coco', '101081', 95, 0.075, '3', '7501043712200', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(398, 'Martini Dulce', '101082', 95, 0.045, '3', '7501035015043', 0.045, '4', '5010677914000', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(399, 'Martini Absolut Azul', '101083', 115, 0.06, '3', '7312040017010', 0.06, '4', '5010677914000', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '1', 'imagenes/coc.jpg', 31, 1),
-(400, 'Martini Greey Goose', '101084', 135, 0.06, '3', '5010677914000', 0.06, '4', '5010677934008', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 31, 1),
-(401, 'Copa Clericot', '101091', 54, 0.09, '3', '101090', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(402, 'Jarra Clericot', '101092', 153, 0.36, '3', '101090', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(403, 'Sangria Natural', '101093', 36, 0.075, '3', '101090', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(404, 'Sangria Preparada', '101094', 76, 0.06, '3', '7501035015203', 0.075, '4', '101090', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(405, 'Perla Negra', '101096', 90, 0.06, '3', '101095', 1, '2', '7501035046016', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '16', 'imagenes/coc.jpg', 30, 1),
-(406, 'Cafe Irlandes ', '051245', 88, 0, 'Kilogramos', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '39', 'imagenes/CHOCOLATES.jpg', 0, 1),
-(407, 'Litro Jugo PiÃ±a', '1234567', 70, 1, '3', '7501013122114', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', '', 0, 1),
-(408, 'Litro Jugo Naranja', '12345678', 70, 1, '3', '7501013122138', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', 'imagenes/tarro.jpg', 0, 1),
-(409, 'Litro Jugo Uva', '124589', 70, 1, '3', '7501013122145', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', 'imagenes/tarro.jpg', 0, 1),
-(413, 'Cerveza Pacifico', '27863', 30, 0.355, '3', '0257964', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '9', 'imagenes/tarro.jpg', 0, 1),
-(415, 'Copa Martel VSOP', '232345098', 120, 0.06, '4', '4607014056847', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '15', 'imagenes/alcohol.jpg', 17, 1),
-(418, 'Tequila Centenario Plata', '89895823612', 575, 0.75, '3', '015489', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '14', '', 13, 2),
-(436, 'Nachos Chope', '24789214', 110, 0.1, 'Kilogramos', '107', 0.15, '1', '098765432', 0.15, '1', '00092', 0.15, '1', '00062', 0.0225, '1', '00054', 0.0075, '1', 0, '11', '../uploads/', 0, 2),
-(420, 'KILOS 100 AÃƒâ€˜OS', '0611501', 700, 1, 'Kilogramos', '2001', 0.75, '3', '7501005616898', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '41', 'imagenes/LUNES.jpg', 34, 1),
-(421, 'KILOS SMIRNOF', '06111502', 700, 1, 'Kilogramos', '2001', 0.75, '3', '082000000068', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '41', 'imagenes/LUNES.jpg', 34, 1),
-(422, 'KILOS TORRES 5', '2478969', 700, 1, 'Kilogramos', '2001', 0.75, '3', '8410113000019', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '41', 'imagenes/LUNES.jpg', 34, 1),
-(423, 'KILOS BACARDI', '06687994', 700, 1, 'Kilogramos', '2001', 0.75, '3', '7501008613122', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '41', 'imagenes/LUNES.jpg', 34, 1),
-(424, 'KILOS JB', '24895', 700, 1, 'Kilogramos', '2001', 0.75, '3', '5010103800310', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', 0, '41', 'imagenes/LUNES.jpg', 34, 1),
-(468, 'Refresco de Cortecia', '2435', 0, 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 0, 1),
-(465, 'Kilos con Torres 10', '524784652', 900, 1, 'Kilogramos', '2001', 0.75, '3', '8410113000071', 4, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 34, 1),
-(466, 'Fajitas de pollo', '36589', 80, 0.3, '1', '106', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '1', '../uploads/', 0, 2),
-(429, 'Fanta  355 ml', '1212343', 28, 1, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', 0, '31', 'imagenes/fanta.jpg', 0, 1),
-(508, 'Media orden de Alitas', '247862', 69, 8, '2', '114', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '11', '../uploads/', 0, 2),
-(479, 'MOSTAZA MIEL', '716486132907', 0, 0.075, '3', '00075', 0.045, '4', '00076', 0.03, '1', '00022', 0.015, '1', '00043', 0, '0', '', 0, '', 0, '46', '../uploads/', 0, 2),
-(439, 'Ensalada del chef', '546529', 95, 0.125, '2', '00032', 0.02, '1', '00008', 0.02, '1', '00026', 0.1, '1', '106', 0.08, '1', '00035', 0.02, '1', 0, '5', '../uploads/', 0, 2),
-(442, 'Sopa de Medula', '178993', 55, 0.1, '1', '7895', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '1', '../uploads/', 0, 2),
-(443, 'Guarnicion Espinaca a la Crema', '7895', 40, 0.15, 'Kilogramos', '00065', 0.05, '1', '55555', 0.015, '4', '00067', 0.05, '1', '00035', 0.002, '1', '00011', 0, '', 0, '21', '../uploads/', 0, 2),
-(444, 'Guarnicion Papa al Horno', '9874', 40, 0.15, 'Kilogramos', '00109', 0.015, '1', '00038', 0.004, '1', '00005', 0, '0', '', 0, '0', '', 0, '', 0, '21', '../uploads/', 0, 2),
-(487, 'TERIYAKI', '7454789', 0, 0.004, '1', '00022', 0.02, '4', '00076', 0.04, '4', '00087', 0.00225, '4', '00018', 0.00225, '4', '00019', 0.0015, '1', 43, '46', '../uploads/', 0, 2),
-(448, 'T-Bone 350 gr', '45692', 190, 1, '2', '45687', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '3', '../uploads/', 0, 2),
-(449, 'New York 350gr', '4597', 250, 1, '2', '1567', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '3', '../uploads/', 0, 2),
-(450, 'Prime Rib 350 gr', '47965', 250, 1, '2', '128965', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '3', '../uploads/', 0, 2),
-(451, 'Black Rib 1kg', '357951', 250, 1, '2', '57896416', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '3', '../uploads/', 0, 2),
-(455, 'Copa Litro 100 aÃƒÂ±os', '47965', 80, 0.09, '3', '7501005616898', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 39, 1),
-(456, 'Copa Litro Smirnof', '798456', 80, 0.09, '3', '082000000068', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 39, 1),
-(457, 'Copa Litro Bacardi', '263749654', 80, 0.09, '3', '7501008613122', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 39, 1),
-(458, 'Copa Litro JB', '3216984', 80, 0.09, '3', '5010103800310', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 39, 1),
-(462, 'Copa Mezcal Meteoro ', '58417', 55, 0.06, '3', '011112090988', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 38, 1),
-(460, 'Copa Mezcal Marca Negra', '57896', 60, 0.06, '3', '736040527336', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 38, 1),
-(463, 'Copa Mezcal Memorable', '9631', 55, 0.06, '1', '7503012751036', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 38, 1),
-(467, 'Medio kilo de Arrachera', '4789', 220, 0.5, '1', '2001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '3', '../uploads/', 0, 2),
-(505, 'Cortecia Copa Torres 5 ', '15478', 0, 60, '3', '8410113000019', 2, 'Pieza', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '47', '../uploads/', 0, 1),
-(507, 'Cortecia Tarro .355', '1483', 0, 0.355, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '47', '../uploads/', 0, 1),
-(476, 'DESCORCHE', '17895', 150, 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '10', '../uploads/', 0, 1),
-(477, 'ADEREZO PAPA AL HORNO', '0078217467', 0, 0.01875, '1', '2006', 0.03125, '4', '00067', 0.0625, '1', '00066', 0.000675, '1', '00011', 0, '0', '', 0, '', 0, '46', '../uploads/', 0, 2),
-(478, 'SALSA PASILLA', '001192387699', 0, 0.025, '1', '00047', 0.3, '2', '00070', 0.003, '1', '55555', 0.01, '1', '00009', 0.03, '4', '00004', 0.0015, '1', 43, '46', '../uploads/', 0, 2),
-(480, 'CESAR', '924637', 0, 0.09, '1', '00031', 0.003, '1', '00077', 0.006, '1', '00020', 0.00225, '4', '00019', 0.00225, '4', '00018', 0.00675, '1', 39, '46', '../uploads/', 0, 2),
-(481, 'SALSA FRUTOS ROJOS', '082748216478', 0, 0.05, '1', '00073', 0.00375, '1', '00043', 0.0002, '1', '00012', 0, '0', '', 0, '0', '', 0, '', 0, '46', '../uploads/', 0, 2),
-(482, 'MIL ISLAS', '74652', 0, 0.09, '3', '00086', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '46', '../uploads/', 0, 2),
-(483, 'BBQ', '09327158', 0, 0.06, '3', '00090', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '46', '../uploads/', 0, 2),
-(484, 'DIABLA', '890573129', 0, 0.0375, '1', '00047', 0.003, '1', '00012', 0.0009, '1', '55555', 0.012, '1', '00041', 0.00006, '1', '00009', 0.000024, '1', 11, '46', '../uploads/', 0, 2),
-(485, 'MANGO', '0472178', 0, 0.06, '1', '00080', 0.015, '4', '7501043700504', 0.0015, '4', '00098', 0, '0', '', 0, '0', '', 0, '', 0, '46', '../uploads/', 0, 2),
-(486, 'Frijoles', '1111', 0, 0.1, '1', '00062', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '21', '../uploads/', 0, 2),
-(506, 'Cortecia Jarra', '21674', 0, 1.6, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '47', '../uploads/', 0, 1),
-(493, 'Johnnie Walker Black Label', '214865', 1050, 0.75, '3', '5000267024004', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '14', '../uploads/', 3, 1),
-(495, 'Atrapa SueÃƒÂ±os', '24522', 50, 0.03, '3', '00459', 0.03, '4', '7501043707657', 0.015, '4', '7501043709354', 0, '0', '', 0, '0', '', 0, '', 0, '17', '../uploads/', 0, 1),
-(497, 'Copa  Amaretto', '636985', 55, 0.06, '3', '7501035020320', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 15, 1),
-(498, 'PROMOCION ETIQUETA ROJA/TORRES 5', '54987', 1100, 0.75, '3', '5000267014074', 0.75, '4', '8410113000019', 4, '2', '0001', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 34, 1),
-(500, 'Menu Mexicano', '061115', 120, 0, '1', '101', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '23', '../uploads/', 0, 2),
-(510, 'SALMON', '5863', 74, 1, '1', '20015', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '37', '../uploads/', 0, 2),
-(509, 'SALMON', '58796', 74, 1, '1', '20015', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '0', '../uploads/', 0, 2),
-(504, 'Cotecia Copa JB', '47965', 0, 0.06, '3', '5010103800310', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '47', '../uploads/', 0, 1),
-(511, 'Copa Cuervo Traicionl', '4496', 0, 0.06, '3', '7501035012028', 2, '2', '0001', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '47', '../uploads/', 0, 1),
-(512, 'PROMO TRITON', '061115', 230, 5, '3', '1009565656', 0, '0', '', 0, '0', '', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 40, 1),
-(513, 'Kilos Red Label', '2473', 700, 0.7, '3', '5000267014074', 5, '2', '0001', 1, '1', '2001', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 34, 1),
-(514, 'Kilos Etiqueta Roja', '18962', 800, 0.75, '3', '101', 5, '2', '0001', 1, '1', '2001', 0, '0', '', 0, '0', '', 0, '', 0, '41', '../uploads/', 34, 1),
-(515, 'Copa Jack Daniels', '5279455', 75, 0.06, '3', '7474747410', 2, '2', '09217197120', 0, '2', 'J19A', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 14, 1),
-(516, 'Whisky Jack Daniels', '7468210', 858, 0.75, '3', '7474747410', 4, '2', '09217197120', 0, '2', 'J19A', 0, '0', '', 0, '0', '', 0, '', 0, '14', '../uploads/', 3, 1),
-(517, 'Copa Henessy V.S.O.P.', '459310', 120, 0.06, '3', '3245990969402', 2, '2', '09217197120', 0, '1', 'J19A', 0, '0', '', 0, '0', '', 0, '', 0, '15', '../uploads/', 17, 1);
+(119, 'CHISTORRA PZA ASADA', '119', 100, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(118, 'CHISTORRA PZA CRUDA', '118', 80, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(117, 'ARRACHERA KG ASADO', '117', 300, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(116, 'ARRACHERA KG CRUDO', '116', 300, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(115, 'COSTILLA KG ASADO', '115', 170, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(114, 'COSTILLA KG CRUDO', '114', 150, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(113, 'LOMO KG ASADO', '113', 160, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(112, 'LOMO KG CRUDO', '112', 140, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(111, 'CHULETA KG ASADO', '111', 280, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(110, 'CHULETA KG CRUDO', '110', 200, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(109, 'LONGANIZA KG ASADO', '109', 160, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(108, 'LONGANIZA KG CRUDO', '108', 140, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(107, 'CECINA KG ASADO', '107', 200, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(106, 'CECINA KG CRUDO', '106', 160, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(105, 'CONEJO ENTERO', '105', 160, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(104, 'POLLO ENTERO', '104', 100, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(103, 'LITRO DE FRIJOLES', '103', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(101, 'PROVOLONE PZA', '101', 60, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(102, 'KG. SURTIDO', '102', 170, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(99, 'BOTANERO PZA', '99', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(100, 'AHUMADO PZA', '100', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(98, 'ASADERO PZA', '98', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(97, 'FRESCO PZA', '97', 80, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(96, 'PANELA PZA', '96', 60, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(95, 'HEBRA 1/2', '95', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(94, 'HEBRA KG', '94', 85, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(93, 'MIEL PZA', '93', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(92, 'NATA ', '92', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(91, 'CREMA', '91', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(90, 'CHILES MANZANOS', '90', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(88, 'TORITO', '88', 120, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(89, 'CHILES CHIPOTLES', '89', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(87, 'BU?UELOS', '87', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(86, 'PAY DE QUESO GRANDE', '86', 200, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(85, 'PAN DE NATA', '85', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(84, 'CAF? HG', '84', 210, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(83, 'REBANADA DE PAN', '83', 15, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(82, 'FLAN DE VASO', '82', 15, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(81, 'PAY DE QUESO', '81', 20, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(80, 'PAY (FRESA, ZARZAMORA, FRUTAS)', '80', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(78, 'PLATANOS FRITOS', '78', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(79, 'DURAZNOS (ROMPOPE O CREMA)', '79', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(77, 'PASTEL DE 3 LECHES (NATURAL, CHOCOLATE O CAJETA)', '77', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(76, 'PASTEL DE ZANAHORIA', '76', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(75, 'FLAN NAPOLITANO', '75', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(74, 'TARTA DE ELOTE', '74', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(73, 'CHOCOFLAN', '73', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(72, 'TORITO', '72', 35, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(71, 'AMARETO', '71', 70, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(70, 'MIDORI', '70', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(69, 'BAILEYS', '69', 70, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(68, 'LICOR 43', '68', 70, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(67, 'ANIS DULCE O SECO', '67', 55, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(66, 'MATUSALEN CLASICO', '66', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(65, 'BACARDI SOLERA', '65', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(64, 'BACARDI BLANCO', '64', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(63, 'SMIRNOFF', '63', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(62, 'BUCHANAN?S', '62', 85, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(61, 'JACK DANIELS', '61', 75, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(60, 'ETIQUETA ROJA', '60', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(59, 'TORRES 10', '59', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(58, 'TORRES 5', '58', 55, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(57, '100 A?OS', '57', 50, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(56, 'DON JULIO REPOSADO', '56', 75, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(55, 'CAZADORES', '55', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(54, 'HORNITOS', '54', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(53, 'TRADICIONAL', '53', 70, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(51, 'CAF? DE OLLA', '51', 15, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(52, '1800', '52', 80, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(50, 'TE', '50', 15, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(49, 'CHOCOLATE', '49', 20, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(48, 'CAF? LECHERO', '48', 20, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(47, 'CAF? CAPUCHINO', '47', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(46, 'CAF? EXPRESS', '46', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(45, 'CAF? AMERICANO', '45', 20, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(44, 'CLAMATO, MICHELADA O CHELADA', '44', 40, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(43, 'CERVEZA  ', '43', 30, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(42, 'COPA DE VINO', '42', 30, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(41, 'JUGO DE NARANJA', '41', 20, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(40, 'JARRA DE AGUA (SABOR)', '40', 60, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(39, 'REFRESCO', '39', 15, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(38, 'LICUADOS', '38', 30, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(37, 'TAMPIQUE?A', '37', 95, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(36, 'MILANESA POLLO O RES (CON ENSALDA Y PAPAS)', '36', 85, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(35, 'PECHUGA PLANCHA O DIABLA (CON ENSALADA Y PAPAS)', '35', 85, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(34, 'MIXIOTE DE CORDERO', '34', 100, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(33, 'RIB-EYE', '33', 185, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(32, 'TOP-SIRLOIN', '32', 160, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(31, 'T-BONE', '31', 160, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(30, 'PARRILLA CON QUESO', '30', 400, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(29, 'ARRACHERA', '29', 120, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(28, 'CHISTORRA', '28', 100, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(27, 'COSTILLA', '27', 95, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(26, 'CONEJO', '26', 90, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(25, 'CHULETA DE CORDERO', '25', 90, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(24, 'MOLLEJAS DE RES', '24', 90, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(23, 'CECINA', '23', 90, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(22, 'POLLO', '22', 85, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(21, 'LOMO', '21', 90, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(20, 'LONGANIZA', '20', 85, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(19, 'SURTIDO', '19', 90, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(17, 'QUESO ASADO', '17', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(18, 'TOREADOS, NOPAL Y CEBOLLA', '18', 35, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(16, 'GUACAMOLE', '16', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(15, 'QUESADILLA CON CARNE', '15', 25, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(14, 'PICADITA', '14', 15, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(13, 'QUESADILLA NATURAL', '13', 20, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(11, 'PANCITA DE RES', '11', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(12, 'PAPA, CHORIZO Y QUESO', '12', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(10, 'SOPA DE CHAMPI?OS', '10', 40, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(9, 'CONSOME', '9', 40, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(8, 'ENSALADA LA JOYA', '8', 45, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(7, 'BISTECK DE TERNERA', '7', 75, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(6, 'OMELETE DE QUESO', '6', 75, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(5, 'CHILAQUILES', '5', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(4, 'ENCHILADAS, ENMOLADAS O ENFRIJOLADAS', '4', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(3, 'HUEVOS CAMPIRANOS', '3', 75, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(2, 'HUEVOS A LA JOYA', '2', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(1, 'HUEVOS AL GUSTO', '1', 60, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ventas`
+--
+
+CREATE TABLE IF NOT EXISTS `ventas` (
+  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
+  `N_venta` int(100) NOT NULL,
+  `articulo` varchar(100) NOT NULL,
+  `codigo_producto` varchar(100) NOT NULL,
+  `cantidad` int(100) NOT NULL,
+  `categoria` varchar(100) NOT NULL,
+  `PrecioU` decimal(60,2) NOT NULL,
+  `PrecioT` decimal(60,2) NOT NULL,
+  `hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha` date NOT NULL,
+  `cantidad_restada` double NOT NULL,
+  `asignada` varchar(100) NOT NULL,
+  `cantidad_restada2` double NOT NULL,
+  `asignada2` varchar(100) NOT NULL,
+  `cantidad_restada3` double NOT NULL,
+  `asignada3` varchar(100) NOT NULL,
+  `cantidad_restada4` double NOT NULL,
+  `asignada4` varchar(100) NOT NULL,
+  `cantidad_restada5` double NOT NULL,
+  `asignada5` varchar(100) NOT NULL,
+  `cantidad_restada6` double NOT NULL,
+  `asignada6` varchar(100) NOT NULL,
+  `usuario` varchar(100) NOT NULL,
+  `mesa` varchar(100) NOT NULL,
+  `area` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `parallevar` varchar(200) NOT NULL,
+  `numpersonas` int(200) NOT NULL,
+  `cortesia` varchar(100) NOT NULL,
+  `metodo_pago` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_venta`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -1189,8 +952,8 @@ INSERT INTO `tipo_productos` (`id_producto`, `nombre_producto`, `codigo_producto
 -- Estructura de tabla para la tabla `ventas_canceladas`
 --
 
-CREATE TABLE `ventas_canceladas` (
-  `id_venta` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ventas_canceladas` (
+  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
   `N_venta` int(100) NOT NULL,
   `articulo` varchar(100) NOT NULL,
   `codigo_producto` varchar(100) NOT NULL,
@@ -1214,8 +977,9 @@ CREATE TABLE `ventas_canceladas` (
   `mesa` varchar(100) NOT NULL,
   `area` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `motivo` varchar(500) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `motivo` varchar(500) NOT NULL,
+  PRIMARY KEY (`id_venta`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `ventas_canceladas`
@@ -1233,8 +997,8 @@ INSERT INTO `ventas_canceladas` (`id_venta`, `N_venta`, `articulo`, `codigo_prod
 -- Estructura de tabla para la tabla `ventas_totales`
 --
 
-CREATE TABLE `ventas_totales` (
-  `id_venta_total` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ventas_totales` (
+  `id_venta_total` int(100) NOT NULL AUTO_INCREMENT,
   `total_venta` decimal(60,2) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1246,8 +1010,9 @@ CREATE TABLE `ventas_totales` (
   `parallevar` varchar(100) NOT NULL,
   `numpersonas` int(11) NOT NULL,
   `cortesia` varchar(100) NOT NULL,
-  `metodo_pago` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `metodo_pago` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_venta_total`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `ventas_totales`
@@ -1263,8 +1028,8 @@ INSERT INTO `ventas_totales` (`id_venta_total`, `total_venta`, `N_venta`, `fecha
 -- Estructura de tabla para la tabla `ventas_totales_canceladas`
 --
 
-CREATE TABLE `ventas_totales_canceladas` (
-  `id_venta_total` int(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ventas_totales_canceladas` (
+  `id_venta_total` int(100) NOT NULL AUTO_INCREMENT,
   `total_venta` decimal(60,2) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1272,206 +1037,10 @@ CREATE TABLE `ventas_totales_canceladas` (
   `usuario` varchar(100) NOT NULL,
   `mesa` varchar(100) NOT NULL,
   `area` varchar(100) NOT NULL,
-  `status` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `status` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_venta_total`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  ADD PRIMARY KEY (`id_cat`);
-
---
--- Indices de la tabla `ctg_tiposusuario`
---
-ALTER TABLE `ctg_tiposusuario`
-  ADD PRIMARY KEY (`id_TipoUsuario`);
-
---
--- Indices de la tabla `empresa`
---
-ALTER TABLE `empresa`
-  ADD PRIMARY KEY (`id_empresa`);
-
---
--- Indices de la tabla `inventario_dia`
---
-ALTER TABLE `inventario_dia`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `inventario_general`
---
-ALTER TABLE `inventario_general`
-  ADD PRIMARY KEY (`id_producto`);
-
---
--- Indices de la tabla `subcategorias`
---
-ALTER TABLE `subcategorias`
-  ADD PRIMARY KEY (`id_subcat`),
-  ADD UNIQUE KEY `titulo_sub` (`titulo_sub`);
-
---
--- Indices de la tabla `tbl_areas`
---
-ALTER TABLE `tbl_areas`
-  ADD PRIMARY KEY (`id_area`);
-
---
--- Indices de la tabla `tbl_areas_responsables`
---
-ALTER TABLE `tbl_areas_responsables`
-  ADD PRIMARY KEY (`id_area_responsable`);
-
---
--- Indices de la tabla `tbl_mesas`
---
-ALTER TABLE `tbl_mesas`
-  ADD PRIMARY KEY (`id_mesa`);
-
---
--- Indices de la tabla `tbl_meseros`
---
-ALTER TABLE `tbl_meseros`
-  ADD PRIMARY KEY (`id_mesero`);
-
---
--- Indices de la tabla `tbl_users`
---
-ALTER TABLE `tbl_users`
-  ADD PRIMARY KEY (`id_usuario`),
-  ADD KEY `id_TipoUsuario` (`id_TipoUsuario`);
-
---
--- Indices de la tabla `tickets`
---
-ALTER TABLE `tickets`
-  ADD PRIMARY KEY (`id_venta`);
-
---
--- Indices de la tabla `tickets_cancelados`
---
-ALTER TABLE `tickets_cancelados`
-  ADD PRIMARY KEY (`id_venta`);
-
---
--- Indices de la tabla `tipo_productos`
---
-ALTER TABLE `tipo_productos`
-  ADD PRIMARY KEY (`id_producto`);
-
---
--- Indices de la tabla `ventas_canceladas`
---
-ALTER TABLE `ventas_canceladas`
-  ADD PRIMARY KEY (`id_venta`);
-
---
--- Indices de la tabla `ventas_totales`
---
-ALTER TABLE `ventas_totales`
-  ADD PRIMARY KEY (`id_venta_total`);
-
---
--- Indices de la tabla `ventas_totales_canceladas`
---
-ALTER TABLE `ventas_totales_canceladas`
-  ADD PRIMARY KEY (`id_venta_total`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `categorias`
---
-ALTER TABLE `categorias`
-  MODIFY `id_cat` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
---
--- AUTO_INCREMENT de la tabla `ctg_tiposusuario`
---
-ALTER TABLE `ctg_tiposusuario`
-  MODIFY `id_TipoUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT de la tabla `empresa`
---
-ALTER TABLE `empresa`
-  MODIFY `id_empresa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT de la tabla `inventario_dia`
---
-ALTER TABLE `inventario_dia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `inventario_general`
---
-ALTER TABLE `inventario_general`
-  MODIFY `id_producto` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=824;
---
--- AUTO_INCREMENT de la tabla `subcategorias`
---
-ALTER TABLE `subcategorias`
-  MODIFY `id_subcat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
---
--- AUTO_INCREMENT de la tabla `tbl_areas`
---
-ALTER TABLE `tbl_areas`
-  MODIFY `id_area` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT de la tabla `tbl_areas_responsables`
---
-ALTER TABLE `tbl_areas_responsables`
-  MODIFY `id_area_responsable` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
---
--- AUTO_INCREMENT de la tabla `tbl_mesas`
---
-ALTER TABLE `tbl_mesas`
-  MODIFY `id_mesa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT de la tabla `tbl_meseros`
---
-ALTER TABLE `tbl_meseros`
-  MODIFY `id_mesero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT de la tabla `tbl_users`
---
-ALTER TABLE `tbl_users`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
---
--- AUTO_INCREMENT de la tabla `tickets`
---
-ALTER TABLE `tickets`
-  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `tickets_cancelados`
---
-ALTER TABLE `tickets_cancelados`
-  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `tipo_productos`
---
-ALTER TABLE `tipo_productos`
-  MODIFY `id_producto` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=518;
---
--- AUTO_INCREMENT de la tabla `ventas_canceladas`
---
-ALTER TABLE `ventas_canceladas`
-  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT de la tabla `ventas_totales`
---
-ALTER TABLE `ventas_totales`
-  MODIFY `id_venta_total` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT de la tabla `ventas_totales_canceladas`
---
-ALTER TABLE `ventas_totales_canceladas`
-  MODIFY `id_venta_total` int(100) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
