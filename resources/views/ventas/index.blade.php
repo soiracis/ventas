@@ -143,7 +143,7 @@
 
 			if(Object.keys(parametros).length>0){
 				producto={}
-				$.get("/producto",parametros)
+				$.get("{{ url('/producto') }}",parametros)
 				.then((data)=>{
 					if(Object.keys(data).length>0){
 						producto=data;
