@@ -13,9 +13,7 @@
 	<link href="{{ asset('/css/font-awesome.css') }}" rel="stylesheet">
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-    <!-- imprime -->
-    <link href="{{ asset('/css/imprime.css') }}" rel="stylesheet" media="print">
-	
+
 	</head>
 	<body>
 		<div id="cover">
@@ -40,16 +38,16 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Meseros"><i class="fa fa-user"></i> Meseros<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/meseros') }}" title="Federal"> Crear</a></li>
-								
+
 								<li class="divider"></li>
-						
+
 							</ul>
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Mesas"><i class="fa fa-book"></i> Mesas<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/federal/activofijo') }}" title="Federal"> Crear</a></li>
-								
+
 								<li class="divider"></li>
 							</ul>
 						</li>
@@ -57,7 +55,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Productos"><i class="fa fa-book" aria-hidden="true"></i> Productos<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/') }}" title="Federal"> Crear</a></li>
-								
+
 								<li class="divider"></li>
 							</ul>
 						</li>
@@ -65,7 +63,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Ventas"><i class="fa fa-shopping-cart"></i> Ventas<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/ventas') }}" title="Federal"> Crear</a></li>
-								
+
 								<li class="divider"></li>
 							</ul>
 						</li>
@@ -95,8 +93,9 @@
 		<!-- Scripts -->
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<script src="/js/moment-with-locales.js"></script>
 
-		
+
 <script type="text/javascript">
         //language:  'es',
 				$(window).load(function(){
