@@ -27,7 +27,7 @@
 	</div>
 	<div class="form-group">
 		<label>Direccion</label>
-		<input type="text" name="name" class="form-control" placeholder="Direccion" value="{{ $poste->direcion }}">
+		<input type="text" name="name" class="form-control" placeholder="Direccion" value="{{ $poste->direccion }}">
 	</div>
 	<div class="form-group">
 		<label>Localidad</label>

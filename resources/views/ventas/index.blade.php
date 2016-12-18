@@ -119,7 +119,7 @@
 				document.querySelector('#mesa').innerHTML=mesa;
 			}
 			else {
-				document.querySelector('#mesa').innerHTML='VENTA GENERAL';
+				document.querySelector('#mesa').innerHTML='VENTA GENERAL2';
 			}
 		}
 		function cambiaMesero(e) {
@@ -216,7 +216,6 @@
 			document.querySelector('#codigo').focus();
 			document.querySelector('#precio').innerHTML="0.00";
 			document.querySelector('#cantidad').value=1;
-
 		}
 
 		//limpia la descripcion del producto
