@@ -112,21 +112,19 @@
 		var producto={}
 		var lista=[]
 		var total=0;
-
 		function cambiaMesa(e) {
 			mesa=e.target.value;
 			if(mesa.length>0){
 				document.querySelector('#mesa').innerHTML=mesa;
 			}
 			else {
-				document.querySelector('#mesa').innerHTML='VENTA GENERAL2';
+				document.querySelector('#mesa').innerHTML='VENTA GENERAL';
 			}
 		}
 		function cambiaMesero(e) {
 			mesero=e.target.value;
 			document.querySelector('#mesero').innerHTML=mesero;
 		}
-
 		//recupera el valor del campo
 		function buscaProducto(event){
 			parametros={};
@@ -140,10 +138,9 @@
 				descripcion=descripcion.trim();
 				parametros={descripcion:descripcion};
 			}
-
 			if(Object.keys(parametros).length>0){
 				producto={}
-				$.get("/producto",parametros)
+				$.get("{{ url('/producto') }}",parametros)
 				.then((data)=>{
 					if(Object.keys(data).length>0){
 						producto=data;
@@ -152,7 +149,6 @@
 						document.querySelector('#precio').innerHTML=data.precio_producto;
 						let cant=document.querySelector('#cantidad');
 						cant.value=1;
-
 						if(parametros.descripcion){
 							document.querySelector('#codigo').value=data.codigo_producto;
 						}
@@ -170,7 +166,6 @@
 				})
 			}
 		}
-
 		//calcula el subtotoal del producto
 		function calculaSubtotal(){
 			document.querySelector('#btnAgregar').disabled=true;
@@ -184,13 +179,11 @@
 				}
 			}
 		}
-
 		function pressEnter(e) {
 			if(e.key=="Enter"){
 				agregaProducto();
 			}
 		}
-
 		//agrega el producto a la lista
 		function agregaProducto(){
 			lista.push(producto);
@@ -199,14 +192,12 @@
 			document.querySelector('#btnAgregar').disabled=true;
 			//actualiza la tabla
 		}
-
 		//elimina el producto a la lista
 		function eliminaProducto(e){
 			producto=e.target;
 			lista.splice(producto.id,1);
 			calculaTotal();
 		}
-
 		//limpia los valores del producto
 		function limpiaProducto(){
 			producto={};
@@ -217,21 +208,16 @@
 			document.querySelector('#precio').innerHTML="0.00";
 			document.querySelector('#cantidad').value=1;
 		}
-
 		//limpia la descripcion del producto
 		function borrarMensaje(){
 			document.querySelector('#mensaje').innerHTML="";
 		}
-
-
-
 		//recorre los elementos de la lista
 		function calculaTotal(){
 			total=0;
 			var listaProductos=document.querySelector('#lista');
 			var nueva = document.createElement('tbody');
 			document.querySelector('#btnImprimir').disabled=true;
-
 			lista.forEach((p,i)=>{
 				//boton eliminar
 				let btn = document.createElement('button');
@@ -242,62 +228,51 @@
 				total+=Number(p.subtotal);
 				// Insert a row in the table at row index 0
 				var newRow = nueva.insertRow(i);
-
 				// Insert a cell in the row at index 0
 				let celda = newRow.insertCell(0);
 				// Append a text node to the cell
 				let valor = document.createTextNode(i+1);
 				celda.appendChild(valor);
 				celda.classList.add('hidden-print');
-
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(1);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.codigo_producto);
 				celda.appendChild(valor);
-
-
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(2);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.nombre_producto);
 				celda.appendChild(valor);
-
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(3);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.cantidad);
 				celda.appendChild(valor);
-
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(4);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.precio_producto);
 				celda.appendChild(valor);
-
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(5);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.subtotal);
 				celda.appendChild(valor);
-
 				//boton elimina
 				celda = newRow.insertCell(6);
 				btn.id=i;
 				celda.appendChild(btn);
 				celda.classList.add('hidden-print');
-
 			});
 			//elimina las filas sobrantes
 			nueva.id="lista";
 			listaProductos.parentNode.replaceChild(nueva, listaProductos);
 			//actualiza el valor
 			document.querySelector('#total').innerHTML=Number(total).toFixed(2);
-
 			if(total>0){
 				document.querySelector('#btnImprimir').disabled=false;
 			}
 		}
-
 	</script>
 @endsection
