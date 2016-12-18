@@ -6,9 +6,14 @@
 			<a  href="{{ url('/ventas') }}" class="btn btn-success" title="Nueva venta">
 				<span class="glyphicon glyphicon-plus"></span> Nueva venta</a>
 			</div>
-			<h1>Ventas</h1>
-			<div class="visible-print" id="empresa">
-
+			<h1 class="hidden-print">Ventas</h1>
+			<div class="visible-print text-center" id="empresa">
+				<b>{{$empresa->nombre}}</b><br>
+				{{$empresa->direccion}} C.P {{$empresa->CP}}, {{$empresa->localidad}}
+				<br>
+				RFC: <b>{{$empresa->RFC}}</b>
+				<br>
+				{{$empresa->telefono}}
 			</div>
 			<hr>
 		</div>

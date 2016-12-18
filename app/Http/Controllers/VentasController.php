@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Ventas;
+use App\Empresa;
 use App\Http\Controllers\Controller;
 
 
@@ -25,12 +26,12 @@ class VentasController extends Controller
 	{
 		//
 
-		$venta = Ventas::all();
+		//$venta = Ventas::all();
+		//$venta = Ventas::paginate();
+		$empresa=Empresa::first();
 
-		$venta = Ventas::paginate();
-		
 
-		return view('ventas/index',compact('venta'));
+		return view('ventas/index',compact('empresa',$empresa));
 	}
 
 	/**
