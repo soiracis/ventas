@@ -1,14 +1,15 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
+use App\Http\Requests;
+use App\Http\Requests\ProductoRequest;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 //use Request;
 use Response;
+// Modelo Producto
 use App\Producto;
 use stdClass;
-
-use App\Http\Requests;
 
 class ProductoController extends Controller
 {
@@ -19,7 +20,12 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        
+        //Enviamos esos registros a la vista
+        $producto = Producto::all();
+
+        $producto = Producto::paginate();
+
         //regresa la informacion del producto
         if($request->ajax())
         {
@@ -33,6 +39,8 @@ class ProductoController extends Controller
                 $p=new stdClass();
             return Response::json($p);
         }
+
+        return view('producto/index',compact('producto'));
     }
 
     /**
@@ -43,6 +51,10 @@ class ProductoController extends Controller
     public function create()
     {
         //
+        $producto = Producto::all();
+
+        return view('producto.create',compact('producto'));
+
     }
 
     /**
@@ -51,9 +63,26 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductoRequest $request)
     {
-        //
+        try {
+            //Escribe exito al momento de hacer el submit
+            //dd('Exito');
+            //Registra el producto
+            //dd($request->all());
+            $producto = new Producto($request->all());
+            //dd($producto);
+            //$producto->nombre_producto = $request->nombre_producto;
+            $producto -> save();
+            //dd('Producto Registrado');
+
+            //se notifica
+            flash()->success('Se ha registrado correctamente.');
+            return redirect()->route('producto.index');
+
+        } catch (Exception $e) {
+            return "Fatal error -".$e->getMessage();
+        }
     }
 
     /**
@@ -98,5 +127,15 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         //
+        try{
+            $o = Producto::findOrFail($id);
+            $o->delete();
+
+            flash()->success('Se ha eleminado correctamente.');
+            return redirect()->route('producto.index');
+        }   
+        catch (Exception $e){
+            return "Fatal error -".$e->getMessage();
+        }
     }
 }
