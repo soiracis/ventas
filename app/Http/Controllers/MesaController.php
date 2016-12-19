@@ -4,14 +4,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\Ventas;
-use App\Empresa;
+use App\Mesa;
 use App\Http\Controllers\Controller;
 
-
-class VentasController extends Controller
+class MesaController extends Controller
 {
-    	//autenticacion
+    //autenticacion
 	/*public function __construct()
 	{
 		$this->middleware('auth');
@@ -26,12 +24,12 @@ class VentasController extends Controller
 	{
 		//
 
-		//$venta = Ventas::all();
-		//$venta = Ventas::paginate();
-		$empresa=Empresa::first();
+		$mesa = Mesa::all();
 
+		$mesa = Mesa::paginate();
+		
 
-		return view('ventas/index',compact('empresa',$empresa));
+		return view('mesa/index',compact('mesa'));
 	}
 
 	/**
@@ -41,9 +39,9 @@ class VentasController extends Controller
 	 */
 	public function create()
 	{
-		$usuarios = Usuario::all();
+		$mesa = Mesa::all();
 
-		return view('usuarios.create',compact('usuarios'));
+		return view('mesa.create',compact('mesa'));
 	}
 
 	/**

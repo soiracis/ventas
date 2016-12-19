@@ -29,7 +29,7 @@ class EmpresaController extends Controller {
 		//Enviamos esos registros a la vista
 		$empresa = Empresa::all();
 
-		$empresa = Empresa::paginate(5);
+		$empresa = Empresa::paginate();
 
 		return view('empresa/index',compact('empresa'));
 	}
@@ -101,6 +101,7 @@ class EmpresaController extends Controller {
 	{
 		//
 		$poste = Empresa::find($id);
+		//dd($poste);
 
 		return view('empresa.edit', compact('poste'));
 	}
@@ -115,7 +116,7 @@ class EmpresaController extends Controller {
 	{
 		//
 		$input = array_except($emp->Input(),array('_token','_method','id_empresa'));
-        Rubro::where('id_empresa',$emp->Input('id_empresa'))->update($input);
+        Empresa::where('id_empresa',$emp->Input('id_empresa'))->update($input);
 
         flash()->success('Se ha guardado los cambios correctamente.');
         return redirect()->route('empresa.index');
