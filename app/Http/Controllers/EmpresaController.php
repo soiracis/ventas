@@ -112,11 +112,11 @@ class EmpresaController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Empresa $emp)
+	public function update(EmpresaRequest $request, $id)
 	{
-		//
-		$input = array_except($emp->Input(),array('_token','_method','id_empresa'));
-        Empresa::where('id_empresa',$emp->Input('id_empresa'))->update($input);
+		// Actualizar
+		$poste = Empresa::find($id);
+		$poste->update($request->all());
 
         flash()->success('Se ha guardado los cambios correctamente.');
         return redirect()->route('empresa.index');
@@ -136,7 +136,7 @@ class EmpresaController extends Controller {
 	        $o->delete();
 
 	        flash()->success('Se ha eleminado correctamente.');
-	        return redirect()->route('empresa.index');
+	        return redirect()->route('empresa.index')->with('success','Removed successfully');
 		}	
 		catch (Exception $e){
 			return "Fatal error -".$e->getMessage();

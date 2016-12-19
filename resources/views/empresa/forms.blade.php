@@ -26,7 +26,7 @@
 	</div>	
 	<div class="form-group">
 		<label>Logo</label>
-		{!!Form::file('telefono', @$telefono, array("class"=>"form-control","placeholder"=>"Logo"))!!}
+		{!!Form::file('logo', @$logo, array("class"=>"form-control","placeholder"=>"Logo"))!!}
 	</div>	
 	<div class="form-group">
 		{!! link_to(URL::previous(), 'Cancelar', ['class' => 'btn btn-default']) !!}

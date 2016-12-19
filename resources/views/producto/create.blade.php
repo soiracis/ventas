@@ -3,7 +3,7 @@
 @section('content')
 <div>
 	<div class="pull-right">
-		<a  href="{{ url('/producto') }}" class="btn btn-info" title="Lista Meseros"> Regresar</a>
+		<a  href="{{ url('/producto') }}" class="btn btn-info" title="Lista Meseros"><i class="glyphicon glyphicon-chevron-left"></i> Regresar</a>
 	</div>
 	<h1>Nuevo Producto</h1>	
 </div>
@@ -14,7 +14,7 @@
 	
 	<div class="form-group">
 		{!! Form::label('nombre_producto','Nombre del Producto') !!}
-		{!! Form::text('nombre_producto',null,['class' => 'form-control','placeholder' => 'Nombre del Producto', 'required']) !!}
+		{!! Form::text('nombre_producto',null,['class' => 'form-control','placeholder' => 'Nombre del Producto', "style"=>"text-transform:uppercase;", "onkeyup"=>"javascript:this.value=this.value.toUpperCase();", 'required']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('codigo_producto','Código del Producto') !!}

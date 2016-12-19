@@ -104,6 +104,10 @@ class ProductoController extends Controller
     public function edit($id)
     {
         //
+        $poste = Producto::find($id);
+        //dd($poste);
+
+        return view('producto.edit', compact('poste'));
     }
 
     /**
@@ -113,9 +117,14 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductoRequest $request, $id)
     {
-        //
+        // Actualizar
+        $poste = Producto::find($id);
+        $poste->update($request->all());
+
+        flash()->success('Se ha guardado los cambios correctamente.');
+        return redirect()->route('producto.index')->with('success','Actualizacion Exitosa');
     }
 
     /**
@@ -132,7 +141,7 @@ class ProductoController extends Controller
             $o->delete();
 
             flash()->success('Se ha eleminado correctamente.');
-            return redirect()->route('producto.index');
+            return redirect()->route('producto.index')->with('success','Removed successfully');
         }   
         catch (Exception $e){
             return "Fatal error -".$e->getMessage();

@@ -6,7 +6,7 @@
 		<a  href="{{ url('/mesa/create') }}" class="btn btn-success" title="Nuevo">
 			<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
 		</div>
-		<h1>Lista de mesa(s)</h1>
+		<h1>Lista de Mesa(s)</h1>
 		<hr>	
 	</div>
 

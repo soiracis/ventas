@@ -13,17 +13,16 @@
 
 @include('forms.errores')
 
-{!!Form::hidden('id_empresa')!!}
+{!! Form::model($poste , ['method' => 'PATCH' , 'action' => ['EmpresaController@update' , $poste->
+id_empresa ]])  !!}
 
 <!--@include('empresa.forms',['txt_btn' => 'Guardar cambios'])-->
 
-<form method="post" action="/empresa/{{ $poste->id_empresa }}">
-	<input name="_method" type="hidden" value="PUT">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="form-group">
-		<label>Nombre de la Empresa</label>
-		<input type="text" name="name" class="form-control" placeholder="Nombre de la Empresa" value="{{ $poste->nombre }}">
+		{!! Form::label('titulo' , 'Nombre de la Empresa' ) !!}
+		{!! Form::text( 'nombre', null, ['class' => 'form-control' ]) !!}
 	</div>
 	<div class="form-group">
 		<label>Direccion</label>
@@ -47,9 +46,11 @@
 	</div>
 	<div class="form-group">
 		<label>Logo</label>
-		<input type="text" name="name" class="form-control" placeholder="Logo" value="{{ $poste->logo }}">
-	</div>
+		{!!Form::file('logo', @$logo, array("class"=>"form-control","placeholder"=>"Logo"))!!}
+	</div>	
 	<button type="submit" class="btn btn-success">Actualizar</button>
-</form>
+
+
+{!!Form::hidden('id_empresa')!!}
 
 @endsection

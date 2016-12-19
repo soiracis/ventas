@@ -112,9 +112,14 @@ class MeseroController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(MeseroRequest $request, $id)
 	{
-		//
+		// Actualizar
+		$poste = Mesero::find($id);
+		$poste->update($request->all());
+
+		flash()->success('Se ha guardado los cambios correctamente.');
+        return redirect()->route('meseros.index')->with('success','Actualización Exitosa');
 	}
 
 	/**
