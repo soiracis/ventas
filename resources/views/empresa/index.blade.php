@@ -10,7 +10,7 @@
 		<hr>	
 	</div>
 
-	<p><b>{{$empresa->total()}}</b> empres(s).</p>
+	<p><b>{{$empresa->total()}}</b> Empres(s).</p>
 	<div>
 		@if($empresa)
 		<table class="table table-responsive">
