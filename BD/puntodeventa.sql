@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2016 a las 17:10:27
+-- Tiempo de generación: 21-12-2016 a las 20:57:52
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -112,7 +112,7 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`id_empresa`, `nombre`, `direccion`, `localidad`, `CP`, `telefono`, `RFC`, `logo`) VALUES
-(1, 'GUFRA MÉXICO', 'VOLCAN DE COLIMA # 2 INT 54', 'LOMA ALTA INFONAVIT', '90014', '2461003165', 'FARC890403NZ3', '../uploads/');
+(1, 'GUFRA MÉXICO', 'VOLCAN DE COLIMA # 2 INT 54', 'LOMA ALTA INFONAVIT', '90014', '2461003165', 'FARC890403NZ3', '');
 
 -- --------------------------------------------------------
 
@@ -888,7 +888,8 @@ INSERT INTO `tipo_productos` (`id_producto`, `nombre_producto`, `codigo_producto
 (4, 'ENCHILADAS, ENMOLADAS O ENFRIJOLADAS', '4', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
 (3, 'HUEVOS CAMPIRANOS', '3', 75, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
 (2, 'HUEVOS A LA JOYA', '2', 65, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
-(1, 'HUEVOS AL GUSTO', '1', 60, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3);
+(1, 'HUEVOS AL GUSTO', '1', 60, 0, '0', '0', 0, 'Pieza', '0', 0, '0', '1', 0, '0', '', 0, '0', '', 0, '0', 0, '15', '../uploads/alcohol.jpg', 14, 3),
+(120, 'COCA COLA', '120', 15, 0, '', '', 0, '', '', 0, '', '', 0, '', '', 0, '', '', 0, '', 0, '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1153,7 +1154,7 @@ ALTER TABLE `ctg_tiposusuario`
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id_empresa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_empresa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `inventario_dia`
 --
@@ -1208,7 +1209,7 @@ ALTER TABLE `tickets_cancelados`
 -- AUTO_INCREMENT de la tabla `tipo_productos`
 --
 ALTER TABLE `tipo_productos`
-  MODIFY `id_producto` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=518;
+  MODIFY `id_producto` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=520;
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
