@@ -49,7 +49,9 @@
 				@endforeach
 			</tbody>
 		</table>
-		@endif
+			@else
+	    <h3><b>No hay empresa registrada</b></h3>
+	@endif
 	</div>
 	
 	
