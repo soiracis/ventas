@@ -13,55 +13,53 @@
 
 @include('forms.errores')
 
-{!!Form::hidden('id_mesero')!!}
-
 <!--@include('empresa.forms',['txt_btn' => 'Guardar cambios'])-->
 
-<form method="post" action="/meseros/{{ $poste->id_mesero }}">
-	<input name="_method" type="hidden" value="PUT">
+{!! Form::model($poste , ['method' => 'PATCH' , 'action' => ['MeseroController@update' , $poste->
+id_mesero ]])  !!}
+
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 	<div class="form-group">
 		{!! Form::label('tx_nombre','Nombre') !!}
-		{!! Form::text('tx_nombre',null,['class' => 'form-control','placeholder' => 'nombre', 'required','value' => '$poste->tx_nombre']) !!}
+		{!! Form::text('tx_nombre',null,['class' => 'form-control' ]) !!}
 	</div>
 	<div class="form-group">
-		{!! Form::label('txapellidoPaterno','Apellido Paterno') !!}
-		{!! Form::text('txapellidoPaterno',null,['class' => 'form-control','placeholder' => 'Apellido Paterno', 'required']) !!}
+		{!! Form::label('tx_apellidoPaterno','Apellido Paterno') !!}
+		{!! Form::text('tx_apellidoPaterno',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
-		{!! Form::label('txapellidoMaterno','Apellido Materno') !!}
-		{!! Form::text('txapellidoMaterno',null,['class' => 'form-control','placeholder' => 'Apellido Materno', 'required']) !!}
+		{!! Form::label('tx_apellidoMaterno','Apellido Materno') !!}
+		{!! Form::text('tx_apellidoMaterno',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('direccion','Dirección') !!}
-		{!! Form::text('direccion',null,['class' => 'form-control','placeholder' => 'Dirección', 'required']) !!}
+		{!! Form::text('direccion',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('tx_correo','Correo Electrónico') !!}
-		{!! Form::email('tx_correo',null,['class' => 'form-control','placeholder' => 'Correo Electrónico', 'required']) !!}
+		{!! Form::email('tx_correo',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('telefono','Teléfono') !!}
-		{!! Form::text('telefono',null,['class' => 'form-control','placeholder' => 'Teléfono', 'required']) !!}
+		{!! Form::text('telefono',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('tx_username','Mesero') !!}
-		{!! Form::text('tx_username',null,['class' => 'form-control','placeholder' => 'Mesero']) !!}
+		{!! Form::text('tx_username',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('pw','Contraseña de Cancelación') !!}
-		{!! Form::text('pw',null,['class' => 'form-control','placeholder' => 'Contraseña de Cancelación']) !!}
+		{!! Form::text('pw',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('imagen','Imagen') !!}
-		{!! Form::file('imagen',null,['class' => 'form-control','placeholder' => 'Imagen']) !!}
+		{!! Form::file('imagen',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
-		{!! link_to(URL::previous(), 'Cancelar', ['class' => 'btn btn-default']) !!}
 		<button type="submit" class="btn btn-success">Actualizar</button>
 	</div>
 
-</form>
+{!!Form::hidden('id_mesero')!!}
 	
 @endsection

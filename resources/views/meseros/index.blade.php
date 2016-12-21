@@ -6,6 +6,7 @@
 		<a  href="{{ url('/meseros/create') }}" class="btn btn-success" title="Nuevo">
 			<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
 		</div>
+		<h1>Mesero</h1>
 		<h1>Lista de Meseros(a)</h1>
 		<hr>	
 	</div>

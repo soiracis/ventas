@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-12-2016 a las 20:21:16
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Tiempo de generación: 19-12-2016 a las 17:10:27
+-- Versión del servidor: 10.1.16-MariaDB
+-- Versión de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `puntodeventa`
@@ -26,14 +26,13 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE IF NOT EXISTS `categorias` (
-  `id_cat` int(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `categorias` (
+  `id_cat` int(3) NOT NULL,
   `titulo_cat` varchar(100) NOT NULL,
   `subcategoria` varchar(100) NOT NULL,
   `visible` varchar(20) NOT NULL,
-  `imagen_cat` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_cat`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+  `imagen_cat` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categorias`
@@ -76,11 +75,10 @@ INSERT INTO `categorias` (`id_cat`, `titulo_cat`, `subcategoria`, `visible`, `im
 -- Estructura de tabla para la tabla `ctg_tiposusuario`
 --
 
-CREATE TABLE IF NOT EXISTS `ctg_tiposusuario` (
-  `id_TipoUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `tx_TipoUsuario` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id_TipoUsuario`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+CREATE TABLE `ctg_tiposusuario` (
+  `id_TipoUsuario` int(11) NOT NULL,
+  `tx_TipoUsuario` varchar(100) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ctg_tiposusuario`
@@ -98,24 +96,23 @@ INSERT INTO `ctg_tiposusuario` (`id_TipoUsuario`, `tx_TipoUsuario`) VALUES
 -- Estructura de tabla para la tabla `empresa`
 --
 
-CREATE TABLE IF NOT EXISTS `empresa` (
-  `id_empresa` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `empresa` (
+  `id_empresa` int(10) NOT NULL,
   `nombre` varchar(300) NOT NULL,
   `direccion` varchar(300) NOT NULL,
   `localidad` varchar(300) NOT NULL,
   `CP` varchar(300) NOT NULL,
   `telefono` varchar(300) NOT NULL,
   `RFC` varchar(300) NOT NULL,
-  `logo` varchar(300) DEFAULT NULL,
-  PRIMARY KEY (`id_empresa`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `logo` varchar(300) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `empresa`
 --
 
 INSERT INTO `empresa` (`id_empresa`, `nombre`, `direccion`, `localidad`, `CP`, `telefono`, `RFC`, `logo`) VALUES
-(3, 'GUFRA MÉXICO', 'VOLCAN DE COLIMA # 2 INT 54', 'LOMA ALTA INFONAVIT', '90014', '', 'FARC890403NZ3', NULL);
+(1, 'GUFRA MÉXICO', 'VOLCAN DE COLIMA # 2 INT 54', 'LOMA ALTA INFONAVIT', '90014', '2461003165', 'FARC890403NZ3', '../uploads/');
 
 -- --------------------------------------------------------
 
@@ -123,8 +120,8 @@ INSERT INTO `empresa` (`id_empresa`, `nombre`, `direccion`, `localidad`, `CP`, `
 -- Estructura de tabla para la tabla `inventario_dia`
 --
 
-CREATE TABLE IF NOT EXISTS `inventario_dia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `inventario_dia` (
+  `id` int(11) NOT NULL,
   `producto` varchar(100) NOT NULL,
   `codigo` varchar(100) NOT NULL,
   `precio` double NOT NULL,
@@ -138,9 +135,8 @@ CREATE TABLE IF NOT EXISTS `inventario_dia` (
   `imagen` varchar(300) NOT NULL,
   `fecha` date NOT NULL,
   `usuario` varchar(200) NOT NULL,
-  `observaciones` varchar(1000) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `observaciones` varchar(1000) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -148,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `inventario_dia` (
 -- Estructura de tabla para la tabla `inventario_general`
 --
 
-CREATE TABLE IF NOT EXISTS `inventario_general` (
-  `id_producto` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `inventario_general` (
+  `id_producto` int(100) NOT NULL,
   `producto` varchar(100) NOT NULL,
   `codigo` varchar(100) NOT NULL,
   `precio_distribuidor` double NOT NULL,
@@ -159,9 +155,8 @@ CREATE TABLE IF NOT EXISTS `inventario_general` (
   `onzas` double NOT NULL,
   `minimo_almacen` double NOT NULL,
   `area_responsable` varchar(100) NOT NULL,
-  `imagen` varchar(200) NOT NULL,
-  PRIMARY KEY (`id_producto`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=824 ;
+  `imagen` varchar(200) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `inventario_general`
@@ -480,14 +475,12 @@ INSERT INTO `inventario_general` (`id_producto`, `producto`, `codigo`, `precio_d
 -- Estructura de tabla para la tabla `subcategorias`
 --
 
-CREATE TABLE IF NOT EXISTS `subcategorias` (
-  `id_subcat` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `subcategorias` (
+  `id_subcat` int(50) NOT NULL,
   `id_cat_principal` int(50) NOT NULL,
   `titulo_sub` varchar(254) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `img` varchar(254) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_subcat`),
-  UNIQUE KEY `titulo_sub` (`titulo_sub`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
+  `img` varchar(254) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `subcategorias`
@@ -540,13 +533,12 @@ INSERT INTO `subcategorias` (`id_subcat`, `id_cat_principal`, `titulo_sub`, `img
 -- Estructura de tabla para la tabla `tbl_areas`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_areas` (
-  `id_area` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_areas` (
+  `id_area` int(10) NOT NULL,
   `nom_area` varchar(200) NOT NULL,
   `largo` int(11) NOT NULL,
-  `ancho` int(11) NOT NULL,
-  PRIMARY KEY (`id_area`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `ancho` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_areas`
@@ -562,12 +554,11 @@ INSERT INTO `tbl_areas` (`id_area`, `nom_area`, `largo`, `ancho`) VALUES
 -- Estructura de tabla para la tabla `tbl_areas_responsables`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_areas_responsables` (
-  `id_area_responsable` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_areas_responsables` (
+  `id_area_responsable` int(100) NOT NULL,
   `nombre_area_responsable` varchar(100) NOT NULL,
-  `nombre_encargado` varchar(200) NOT NULL,
-  PRIMARY KEY (`id_area_responsable`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+  `nombre_encargado` varchar(200) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_areas_responsables`
@@ -589,14 +580,13 @@ INSERT INTO `tbl_areas_responsables` (`id_area_responsable`, `nombre_area_respon
 -- Estructura de tabla para la tabla `tbl_mesas`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_mesas` (
-  `id_mesa` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_mesas` (
+  `id_mesa` int(100) NOT NULL,
   `nom_mesa` varchar(100) NOT NULL,
   `id_area` int(100) NOT NULL,
   `nom_area` varchar(100) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_mesa`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `status` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_mesas`
@@ -626,8 +616,8 @@ INSERT INTO `tbl_mesas` (`id_mesa`, `nom_mesa`, `id_area`, `nom_area`, `status`)
 -- Estructura de tabla para la tabla `tbl_meseros`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_meseros` (
-  `id_mesero` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_meseros` (
+  `id_mesero` int(11) NOT NULL,
   `tx_nombre` varchar(50) NOT NULL,
   `tx_apellidoPaterno` varchar(50) DEFAULT NULL,
   `tx_apellidoMaterno` varchar(50) DEFAULT NULL,
@@ -637,9 +627,8 @@ CREATE TABLE IF NOT EXISTS `tbl_meseros` (
   `tx_username` varchar(50) DEFAULT NULL,
   `dt_registro` datetime DEFAULT NULL,
   `pw` varchar(100) NOT NULL,
-  `imagen` varchar(500) NOT NULL,
-  PRIMARY KEY (`id_mesero`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `imagen` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_meseros`
@@ -655,8 +644,8 @@ INSERT INTO `tbl_meseros` (`id_mesero`, `tx_nombre`, `tx_apellidoPaterno`, `tx_a
 -- Estructura de tabla para la tabla `tbl_users`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_users` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_users` (
+  `id_usuario` int(11) NOT NULL,
   `tx_nombre` varchar(50) NOT NULL,
   `tx_apellidoPaterno` varchar(50) DEFAULT NULL,
   `tx_apellidoMaterno` varchar(50) DEFAULT NULL,
@@ -667,10 +656,8 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `id_TipoUsuario` int(11) DEFAULT NULL,
   `dt_registro` datetime DEFAULT NULL,
   `pw` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `imagen` varchar(500) NOT NULL,
-  PRIMARY KEY (`id_usuario`),
-  KEY `id_TipoUsuario` (`id_TipoUsuario`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=76 ;
+  `imagen` varchar(500) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tbl_users`
@@ -690,8 +677,8 @@ INSERT INTO `tbl_users` (`id_usuario`, `tx_nombre`, `tx_apellidoPaterno`, `tx_ap
 -- Estructura de tabla para la tabla `tickets`
 --
 
-CREATE TABLE IF NOT EXISTS `tickets` (
-  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets` (
+  `id_venta` int(100) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `comandas` varchar(100) NOT NULL,
   `mesa` varchar(100) NOT NULL,
@@ -707,9 +694,8 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `efectivo` double NOT NULL,
   `metodo_pago` varchar(100) NOT NULL,
   `propina` double NOT NULL,
-  `descuento` double NOT NULL,
-  PRIMARY KEY (`id_venta`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `descuento` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tickets`
@@ -728,8 +714,8 @@ INSERT INTO `tickets` (`id_venta`, `N_venta`, `comandas`, `mesa`, `area`, `usuar
 -- Estructura de tabla para la tabla `tickets_cancelados`
 --
 
-CREATE TABLE IF NOT EXISTS `tickets_cancelados` (
-  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tickets_cancelados` (
+  `id_venta` int(100) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `comandas` varchar(100) NOT NULL,
   `mesa` varchar(100) NOT NULL,
@@ -741,9 +727,8 @@ CREATE TABLE IF NOT EXISTS `tickets_cancelados` (
   `tarjeta` double NOT NULL,
   `efectivo` double NOT NULL,
   `metodo_pago` varchar(100) NOT NULL,
-  `propina` double NOT NULL,
-  PRIMARY KEY (`id_venta`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `propina` double NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -751,8 +736,8 @@ CREATE TABLE IF NOT EXISTS `tickets_cancelados` (
 -- Estructura de tabla para la tabla `tipo_productos`
 --
 
-CREATE TABLE IF NOT EXISTS `tipo_productos` (
-  `id_producto` int(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tipo_productos` (
+  `id_producto` int(3) NOT NULL,
   `nombre_producto` varchar(100) NOT NULL,
   `codigo_producto` varchar(100) NOT NULL,
   `precio_producto` double NOT NULL,
@@ -777,9 +762,8 @@ CREATE TABLE IF NOT EXISTS `tipo_productos` (
   `mostrar_en` varchar(100) NOT NULL,
   `imagen` varchar(100) NOT NULL,
   `subcat` int(20) NOT NULL,
-  `area` int(10) NOT NULL,
-  PRIMARY KEY (`id_producto`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=518 ;
+  `area` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `tipo_productos`
@@ -912,8 +896,8 @@ INSERT INTO `tipo_productos` (`id_producto`, `nombre_producto`, `codigo_producto
 -- Estructura de tabla para la tabla `ventas`
 --
 
-CREATE TABLE IF NOT EXISTS `ventas` (
-  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ventas` (
+  `id_venta` int(100) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `articulo` varchar(100) NOT NULL,
   `codigo_producto` varchar(100) NOT NULL,
@@ -942,9 +926,8 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   `parallevar` varchar(200) NOT NULL,
   `numpersonas` int(200) NOT NULL,
   `cortesia` varchar(100) NOT NULL,
-  `metodo_pago` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_venta`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `metodo_pago` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -952,8 +935,8 @@ CREATE TABLE IF NOT EXISTS `ventas` (
 -- Estructura de tabla para la tabla `ventas_canceladas`
 --
 
-CREATE TABLE IF NOT EXISTS `ventas_canceladas` (
-  `id_venta` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ventas_canceladas` (
+  `id_venta` int(100) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `articulo` varchar(100) NOT NULL,
   `codigo_producto` varchar(100) NOT NULL,
@@ -977,9 +960,8 @@ CREATE TABLE IF NOT EXISTS `ventas_canceladas` (
   `mesa` varchar(100) NOT NULL,
   `area` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `motivo` varchar(500) NOT NULL,
-  PRIMARY KEY (`id_venta`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `motivo` varchar(500) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ventas_canceladas`
@@ -997,8 +979,8 @@ INSERT INTO `ventas_canceladas` (`id_venta`, `N_venta`, `articulo`, `codigo_prod
 -- Estructura de tabla para la tabla `ventas_totales`
 --
 
-CREATE TABLE IF NOT EXISTS `ventas_totales` (
-  `id_venta_total` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ventas_totales` (
+  `id_venta_total` int(100) NOT NULL,
   `total_venta` decimal(60,2) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1010,9 +992,8 @@ CREATE TABLE IF NOT EXISTS `ventas_totales` (
   `parallevar` varchar(100) NOT NULL,
   `numpersonas` int(11) NOT NULL,
   `cortesia` varchar(100) NOT NULL,
-  `metodo_pago` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_venta_total`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `metodo_pago` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `ventas_totales`
@@ -1028,8 +1009,8 @@ INSERT INTO `ventas_totales` (`id_venta_total`, `total_venta`, `N_venta`, `fecha
 -- Estructura de tabla para la tabla `ventas_totales_canceladas`
 --
 
-CREATE TABLE IF NOT EXISTS `ventas_totales_canceladas` (
-  `id_venta_total` int(100) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ventas_totales_canceladas` (
+  `id_venta_total` int(100) NOT NULL,
   `total_venta` decimal(60,2) NOT NULL,
   `N_venta` int(100) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1037,10 +1018,217 @@ CREATE TABLE IF NOT EXISTS `ventas_totales_canceladas` (
   `usuario` varchar(100) NOT NULL,
   `mesa` varchar(100) NOT NULL,
   `area` varchar(100) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_venta_total`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `status` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id_cat`);
+
+--
+-- Indices de la tabla `ctg_tiposusuario`
+--
+ALTER TABLE `ctg_tiposusuario`
+  ADD PRIMARY KEY (`id_TipoUsuario`);
+
+--
+-- Indices de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  ADD PRIMARY KEY (`id_empresa`);
+
+--
+-- Indices de la tabla `inventario_dia`
+--
+ALTER TABLE `inventario_dia`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `inventario_general`
+--
+ALTER TABLE `inventario_general`
+  ADD PRIMARY KEY (`id_producto`);
+
+--
+-- Indices de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`id_subcat`),
+  ADD UNIQUE KEY `titulo_sub` (`titulo_sub`);
+
+--
+-- Indices de la tabla `tbl_areas`
+--
+ALTER TABLE `tbl_areas`
+  ADD PRIMARY KEY (`id_area`);
+
+--
+-- Indices de la tabla `tbl_areas_responsables`
+--
+ALTER TABLE `tbl_areas_responsables`
+  ADD PRIMARY KEY (`id_area_responsable`);
+
+--
+-- Indices de la tabla `tbl_mesas`
+--
+ALTER TABLE `tbl_mesas`
+  ADD PRIMARY KEY (`id_mesa`);
+
+--
+-- Indices de la tabla `tbl_meseros`
+--
+ALTER TABLE `tbl_meseros`
+  ADD PRIMARY KEY (`id_mesero`);
+
+--
+-- Indices de la tabla `tbl_users`
+--
+ALTER TABLE `tbl_users`
+  ADD PRIMARY KEY (`id_usuario`),
+  ADD KEY `id_TipoUsuario` (`id_TipoUsuario`);
+
+--
+-- Indices de la tabla `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id_venta`);
+
+--
+-- Indices de la tabla `tickets_cancelados`
+--
+ALTER TABLE `tickets_cancelados`
+  ADD PRIMARY KEY (`id_venta`);
+
+--
+-- Indices de la tabla `tipo_productos`
+--
+ALTER TABLE `tipo_productos`
+  ADD PRIMARY KEY (`id_producto`);
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id_venta`);
+
+--
+-- Indices de la tabla `ventas_canceladas`
+--
+ALTER TABLE `ventas_canceladas`
+  ADD PRIMARY KEY (`id_venta`);
+
+--
+-- Indices de la tabla `ventas_totales`
+--
+ALTER TABLE `ventas_totales`
+  ADD PRIMARY KEY (`id_venta_total`);
+
+--
+-- Indices de la tabla `ventas_totales_canceladas`
+--
+ALTER TABLE `ventas_totales_canceladas`
+  ADD PRIMARY KEY (`id_venta_total`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id_cat` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+--
+-- AUTO_INCREMENT de la tabla `ctg_tiposusuario`
+--
+ALTER TABLE `ctg_tiposusuario`
+  MODIFY `id_TipoUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `empresa`
+--
+ALTER TABLE `empresa`
+  MODIFY `id_empresa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `inventario_dia`
+--
+ALTER TABLE `inventario_dia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `inventario_general`
+--
+ALTER TABLE `inventario_general`
+  MODIFY `id_producto` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=824;
+--
+-- AUTO_INCREMENT de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  MODIFY `id_subcat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT de la tabla `tbl_areas`
+--
+ALTER TABLE `tbl_areas`
+  MODIFY `id_area` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `tbl_areas_responsables`
+--
+ALTER TABLE `tbl_areas_responsables`
+  MODIFY `id_area_responsable` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT de la tabla `tbl_mesas`
+--
+ALTER TABLE `tbl_mesas`
+  MODIFY `id_mesa` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT de la tabla `tbl_meseros`
+--
+ALTER TABLE `tbl_meseros`
+  MODIFY `id_mesero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `tbl_users`
+--
+ALTER TABLE `tbl_users`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+--
+-- AUTO_INCREMENT de la tabla `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `tickets_cancelados`
+--
+ALTER TABLE `tickets_cancelados`
+  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `tipo_productos`
+--
+ALTER TABLE `tipo_productos`
+  MODIFY `id_producto` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=518;
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `ventas_canceladas`
+--
+ALTER TABLE `ventas_canceladas`
+  MODIFY `id_venta` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `ventas_totales`
+--
+ALTER TABLE `ventas_totales`
+  MODIFY `id_venta_total` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `ventas_totales_canceladas`
+--
+ALTER TABLE `ventas_totales_canceladas`
+  MODIFY `id_venta_total` int(100) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

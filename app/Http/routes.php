@@ -22,4 +22,5 @@ Route::resource('empresa', 'EmpresaController');
 Route::resource('ventas', 'VentasController');
 Route::resource('producto', 'ProductoController');
 Route::resource('meseros', 'MeseroController');
+Route::resource('meseros', 'MeseroController');
 Route::resource('mesa', 'MesaController');

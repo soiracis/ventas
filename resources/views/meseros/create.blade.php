@@ -3,7 +3,7 @@
 @section('content')
 <div>
 	<div class="pull-right">
-		<a  href="{{ url('/meseros') }}" class="btn btn-info" title="Lista Meseros"> Regresar</a>
+		<a  href="{{ url('/meseros') }}" class="btn btn-info" title="Lista Meseros"><i class="glyphicon glyphicon-chevron-left"></i> Regresar</a>
 	</div>
 	<h1>Nuevo Mesero(a)</h1>	
 </div>
@@ -14,7 +14,7 @@
 	
 	<div class="form-group">
 		{!! Form::label('tx_nombre','Nombre') !!}
-		{!! Form::text('tx_nombre',null,['class' => 'form-control','placeholder' => 'nombre', 'required']) !!}
+		{!! Form::text('tx_nombre',null,['class' => 'form-control','placeholder' => 'Nombre', 'required']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('txapellidoPaterno','Apellido Paterno') !!}
@@ -41,12 +41,12 @@
 		{!! Form::text('tx_username',null,['class' => 'form-control','placeholder' => 'Mesero']) !!}
 	</div>
 	<div class="form-group">
-		{!! Form::label('pw','Contraseña de Cancelación') !!}
+		{!! Form::label('pw','Contraseña') !!}
 		{!! Form::text('pw',null,['class' => 'form-control','placeholder' => 'Contraseña de Cancelación']) !!}
 	</div>
 	<div class="form-group">
 		{!! Form::label('imagen','Imagen') !!}
-		{!! Form::file('imagen',null,['class' => 'form-control','placeholder' => 'Imagen']) !!}
+		{!! Form::file('imagen',null,['class' => 'form-control' ]) !!}
 	</div>
 	<div class="form-group">
 		{!! link_to(URL::previous(), 'Cancelar', ['class' => 'btn btn-default']) !!}

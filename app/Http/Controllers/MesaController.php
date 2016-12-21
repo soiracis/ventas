@@ -4,7 +4,11 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+//modelo Mesa
 use App\Mesa;
+//modelo Area
+use App\Area;
+
 use App\Http\Controllers\Controller;
 
 class MesaController extends Controller
@@ -49,9 +53,25 @@ class MesaController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(MesaRequest $mes)
 	{
 		//
+		try{
+			$o = new Mesa();
+	        $o->id_mesa=$mes->input('id_mesa');
+	        $o->nom_mesa=$mes->input('nom_mesa');
+	        $o->id_area=$mes->input('id_area');
+	        $o->nom_area=$mes->input('nom_area');
+	        $o->status=$mes->input('status');
+	        $o->save();
+
+	    //se notifica
+    	flash()->success('Se ha registrado correctamente.');
+        return redirect()->route('mesa.index');
+		}
+		catch(Exception $e){
+			return "Fatal error -".$e->getMessage();
+		}
 	}
 
 	/**

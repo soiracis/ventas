@@ -35,7 +35,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="{{ url('/empresa') }}"> <i class="fa fa-building-o"></i> Empresa</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Meseros"><i class="fa fa-user"></i> Meseros<span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Meseros"><i class="fa fa-child"></i> Meseros<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/meseros') }}" title="Federal"> Crear</a></li>
 								
@@ -52,10 +52,9 @@
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Productos"><i class="fa fa-book" aria-hidden="true"></i> Productos<span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Productos"><i class="fa fa-cutlery" aria-hidden="true"></i> Productos<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/producto') }}" title="Federal"> Crear</a></li>
-								
+								<li><a href="{{ url('/producto') }}" title="Federal"> Crear</a></li>							
 								<li class="divider"></li>
 							</ul>
 						</li>
@@ -71,8 +70,8 @@
 
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
-						<li><a href="{{ url('/auth/login') }}" title="Iniciar sesión"><i class="fa fa-key"></i> Iniciar sesión</a></li>
-						<li><a href="{{ url('/auth/register') }}" title="Registrar"><i class="fa fa-user-plus"></i> Registrar</a></li>
+						<li><a href="{{ url('/') }}" title="Iniciar sesión"><i class="fa fa-key"></i> Iniciar sesión</a></li>
+						<li><a href="{{ url('/') }}" title="Registrar"><i class="fa fa-user-plus"></i> Registrar</a></li>
 						@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Salir"><i class="fa fa-unlock"></i> {{ Auth::user()->username }} <span class="caret"></span></a>
