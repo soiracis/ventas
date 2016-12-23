@@ -1,6 +1,21 @@
 @extends('app')
 
 @section('content')
+	<style>
+		@media print{
+
+			hr{
+				margin:5px;
+			}
+			td, th{
+				padding:1px !important;
+				text-align:center;
+			}
+			.table{
+				margin-bottom:10px;
+			}
+		}
+	</style>
 	<div>
 		<div class="pull-right hidden-print">
 			<a  href="{{ url('/ventas') }}" class="btn btn-success" title="Nueva venta">
@@ -28,14 +43,14 @@
 						<br>
 						<span id='fecha'>01/dic/2016</span>
 					</div>
-					<div class="col-xs-4 col-md-2">
+					<div class="col-xs-3 col-md-2">
 						<div class="form-group">
 								<label>Mesa</label>
-								<span class="visible-print" id="mesa">VENTA GENERAL</span>
+								<span class="visible-print" id="mesa">GENERAL</span>
 								<input type="text" class="form-control hidden-print" placeholder="VENTA GENERAL" onchange="cambiaMesa(event)">
 						</div>
 					</div>
-					<div class="col-xs-5 co-md-6">
+					<div class="col-xs-6 co-md-6">
 						<div class="form-group">
 								<label>Mesero</label>
 								<span class="visible-print" id="mesero"></span>
@@ -233,12 +248,12 @@
 				// Append a text node to the cell
 				let valor = document.createTextNode(i+1);
 				celda.appendChild(valor);
-				celda.classList.add('hidden-print');
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(1);
 				// Append a text node to the cell
 				valor = document.createTextNode(p.codigo_producto);
 				celda.appendChild(valor);
+				celda.classList.add('hidden-print');
 				// Insert a cell in the row at index 0
 				celda = newRow.insertCell(2);
 				// Append a text node to the cell
