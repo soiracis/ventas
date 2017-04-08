@@ -4,7 +4,7 @@ use App\Http\Requests;
 use App\Http\Requests\EmpresaRequest;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 // Modelo Empresa
 use App\Empresa;
 
@@ -14,10 +14,10 @@ use Exception;
 class EmpresaController extends Controller {
 
 	//autenticacion
-	/*public function __construct()
+	public function __construct()
 	{
 		$this->middleware('auth');
-	}*/
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -73,7 +73,7 @@ class EmpresaController extends Controller {
 		catch(Exception $e){
 			return "Fatal error -".$e->getMessage();
 		}
-           	
+
 	}
 
 	/**
@@ -137,11 +137,11 @@ class EmpresaController extends Controller {
 
 	        flash()->success('Se ha eleminado correctamente.');
 	        return redirect()->route('empresa.index')->with('success','Removed successfully');
-		}	
+		}
 		catch (Exception $e){
 			return "Fatal error -".$e->getMessage();
 		}
-        
+
 	}
 
 }

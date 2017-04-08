@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
@@ -7,7 +7,7 @@
 			<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
 		</div>
 		<h1>Empresa</h1>
-		<hr>	
+		<hr>
 	</div>
 
 	<p><b>{{$empresa->total()}}</b> Empres(s).</p>
@@ -35,7 +35,7 @@
 					<td>{{$emp->CP}}</td>
 					<td>{{$emp->RFC}}</td>
 					<td>@include('empresa.acciones')</td>
-					<!-- 
+					<!--
 					<td>
 						<form action="{{ route('empresa.destroy', $emp->id_empresa) }}" method="post">
 							<input name="_method" type="hidden" value="DELETE">
@@ -53,7 +53,7 @@
 	    <h3><b>No hay empresa registrada</b></h3>
 	@endif
 	</div>
-	
-	
+
+
 	{!! $empresa->render() !!}
 	@endsection

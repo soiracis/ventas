@@ -1,17 +1,17 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
 	<div class="pull-right">
 		<a  href="{{ url('/meseros') }}" class="btn btn-info" title="Lista Meseros"><i class="glyphicon glyphicon-chevron-left"></i> Regresar</a>
 	</div>
-	<h1>Nuevo Mesero(a)</h1>	
+	<h1>Nuevo Mesero(a)</h1>
 </div>
 
 @include('forms.errores')
 
 {!! Form::open(['route' => 'meseros.store', 'method' => 'POST', 'files' => true]) !!}
-	
+
 	<div class="form-group">
 		{!! Form::label('tx_nombre','Nombre') !!}
 		{!! Form::text('tx_nombre',null,['class' => 'form-control','placeholder' => 'Nombre', 'required']) !!}
@@ -52,7 +52,7 @@
 		{!! link_to(URL::previous(), 'Cancelar', ['class' => 'btn btn-default']) !!}
 		{!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
 	</div>
-	
+
 
 {!! Form::close() !!}
 

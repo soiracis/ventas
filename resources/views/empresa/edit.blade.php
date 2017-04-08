@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
@@ -7,7 +7,7 @@
 		<a  href="{{ url('/empresa') }}" class="btn btn-info"><i class="fa fa-chevron-left"></i> Regresar</a>
 
 	</div>
-	<h1>Actualizar Empresa </h1>		
+	<h1>Actualizar Empresa </h1>
 </div>
 <h4><b>{{$poste->id_empresa}}</b> -- {{$poste->nombre}}</h4>
 
@@ -47,7 +47,7 @@ id_empresa ]])  !!}
 	<div class="form-group">
 		<label>Logo</label>
 		{!!Form::file('logo', @$logo, array("class"=>"form-control","placeholder"=>"Logo"))!!}
-	</div>	
+	</div>
 	<button type="submit" class="btn btn-success">Actualizar</button>
 
 

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
@@ -7,7 +7,7 @@
 		<a  href="{{ url('/meseros') }}" class="btn btn-info"><i class="fa fa-chevron-left"></i> Regresar</a>
 
 	</div>
-	<h1>Actualizar Mesero(a) </h1>		
+	<h1>Actualizar Mesero(a) </h1>
 </div>
 <h4><b>{{$poste->id_mesero}}</b> -- {{$poste->tx_nombre}}</h4>
 
@@ -61,5 +61,5 @@ id_mesero ]])  !!}
 	</div>
 
 {!!Form::hidden('id_mesero')!!}
-	
+
 @endsection

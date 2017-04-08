@@ -13,11 +13,11 @@ use App\Http\Controllers\Controller;
 
 class MesaController extends Controller
 {
-    //autenticacion
-	/*public function __construct()
+  //autenticacion
+	public function __construct()
 	{
 		$this->middleware('auth');
-	}*/
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -31,7 +31,7 @@ class MesaController extends Controller
 		$mesa = Mesa::all();
 
 		$mesa = Mesa::paginate();
-		
+
 
 		return view('mesa/index',compact('mesa'));
 	}

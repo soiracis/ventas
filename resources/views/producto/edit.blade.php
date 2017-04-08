@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
@@ -7,7 +7,7 @@
 		<a  href="{{ url('/producto') }}" class="btn btn-info"><i class="fa fa-chevron-left"></i> Regresar</a>
 
 	</div>
-	<h1>Actualizar Empresa </h1>		
+	<h1>Actualizar Empresa </h1>
 </div>
 <h4><b>{{$poste->id_producto}}</b> -- {{$poste->nombre_producto}}</h4>
 

@@ -14,10 +14,10 @@ use Exception;
 class MeseroController extends Controller
 {
    //autenticacion
-	/*public function __construct()
+	public function __construct()
 	{
 		$this->middleware('auth');
-	}*/
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -31,7 +31,7 @@ class MeseroController extends Controller
 		$mesero = Mesero::all();
 
 		$mesero = Mesero::paginate();
-		
+
 
 		return view('meseros/index',compact('mesero'));
 	}
@@ -75,7 +75,7 @@ class MeseroController extends Controller
 		} catch (Exception $e) {
 			return "Fatal error -".$e->getMessage();
 		}
-		
+
 	}
 
 	/**
@@ -137,7 +137,7 @@ class MeseroController extends Controller
 
 	        flash()->success('Se ha eleminado correctamente.');
 	        return redirect()->route('meseros.index');
-		}	
+		}
 		catch (Exception $e){
 			return "Fatal error -".$e->getMessage();
 		}

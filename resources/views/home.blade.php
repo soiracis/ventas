@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 
@@ -14,7 +14,7 @@
 			</div>
 
 			<div align="center" style="font-size: 96px;">
-				.:: Merendero la Joya ::. 
+				.:: Merendero la Joya ::.
 			</div>
 
 			<div align="center">

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
@@ -7,7 +7,7 @@
 			<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
 		</div>
 		<h1>Lista de Meseros(a)</h1>
-		<hr>	
+		<hr>
 	</div>
 
 	<p><b>{{$mesero->total()}}</b> Meseros(a).</p>
@@ -21,7 +21,7 @@
 					<th width="400px">Correo</th>
 					<th width="400px">Teléfono</th>
 					<th width="400px">Mesero</th>
-					
+
 					<th width="400px">Acciones</th>
 				</tr>
 			</thead>
@@ -34,7 +34,7 @@
 					<td>{{$mes->telefono}}</td>
 					<td>{{$mes->tx_username}}</td>
 					<td>@include('meseros.acciones')</td>
-					<!-- 
+					<!--
 					<td>
 						<form action="{{ route('meseros.destroy', $mes->id_usuario) }}" method="post">
 							<input name="_method" type="hidden" value="DELETE">
@@ -50,7 +50,7 @@
 		</table>
 		@endif
 	</div>
-	
-	
+
+
 	{!! $mesero->render() !!}
 	@endsection

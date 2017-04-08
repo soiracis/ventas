@@ -1,4 +1,4 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
 <div>
@@ -7,7 +7,7 @@
 			<span class="glyphicon glyphicon-plus"></span> Nuevo</a>
 		</div>
 		<h1>Lista de Producto(s)</h1>
-		<hr>	
+		<hr>
 	</div>
 
 	<p><b>{{$producto->total()}}</b> producto(a).</p>
@@ -20,7 +20,7 @@
 					<th width="400px">Nombre del Producto</th>
 					<th width="400px">Codigo del Producto</th>
 					<th width="400px">Precio</th>
-					
+
 					<th width="400px">Acciones</th>
 				</tr>
 			</thead>
@@ -33,7 +33,7 @@
 					<td>{{$prod->precio_producto}}</td>
 
 					<td>@include('producto.acciones')</td>
-					<!-- 
+					<!--
 					<td>
 						<form action="{{ route('producto.destroy', $prod->id_producto) }}" method="post">
 							<input name="_method" type="hidden" value="DELETE">
@@ -49,7 +49,7 @@
 		</table>
 		@endif
 	</div>
-	
-	
+
+
 	{!! $producto->render() !!}
 	@endsection
