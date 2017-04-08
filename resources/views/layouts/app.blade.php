@@ -34,48 +34,33 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					@if (!Auth::guest())
 					<ul class="nav navbar-nav">
-						<li><a href="{{ url('/empresa') }}"> <i class="fa fa-building-o"></i> Empresa</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Meseros"><i class="fa fa-child"></i> Meseros<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/meseros') }}" title="Lista"> Lista</a></li>
-
-								<li class="divider"></li>
-
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Mesas"><i class="fa fa-book"></i> Mesas<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/mesa') }}" title="Lista"> Lista</a></li>
-
-								<li class="divider"></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Productos"><i class="fa fa-cutlery" aria-hidden="true"></i> Productos<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/producto') }}" title="Lista"> Lista</a></li>
-								<li class="divider"></li>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Ventas"><i class="fa fa-shopping-cart"></i> Ventas<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="{{ url('/ventas') }}" title="Lista"> Lista</a></li>
-
-								<li class="divider"></li>
-							</ul>
-						</li>
+						@if (Auth::user()->estaAutorizado('empresa'))
+							<li><a href="{{ url('/empresa') }}"> <i class="fa fa-building-o"></i> Empresa</a></li>
+						@endif
+						@if (Auth::user()->estaAutorizado('meseros'))
+							<li><a href="{{ url('/meseros') }}"> <i class="fa fa-child"></i> Meseros</a></li>
+						@endif
+						@if (Auth::user()->estaAutorizado('mesa'))
+							<li><a href="{{ url('/mesa') }}"> <i class="fa fa-book"></i> Mesas</a></li>
+						@endif
+						@if (Auth::user()->estaAutorizado('producto'))
+							<li><a href="{{ url('/producto') }}"> <i class="fa fa-cutlery"></i> Productos</a></li>
+						@endif
+						@if (Auth::user()->estaAutorizado('ventas'))
+							<li><a href="{{ url('/ventas') }}"> <i class="fa fa-shopping-cart"></i> Ventas</a></li>
+						@endif
 					</ul>
 					@endif
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
 						<li><a href="{{ url('/login') }}" title="Iniciar sesión"><i class="fa fa-key"></i> Iniciar sesión</a></li>
-						<li><a href="{{ url('/register') }}" title="Registrar"><i class="fa fa-user-plus"></i> Registrar</a></li>
+						<!-- <li><a href="{{ url('/register') }}" title="Registrar"><i class="fa fa-user-plus"></i> Registrar</a></li> -->
 						@else
+						@if (Auth::user()->estaAutorizado('users'))
+							<li><a href="{{ url('/users') }}"> <i class="fa fa-users"></i> Usuarios</a></li>
+						@endif
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Salir"><i class="fa fa-unlock"></i> {{ Auth::user()->username }} <span class="caret"></span></a>							<ul class="dropdown-menu" role="menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Salir"><i class="fa fa-unlock"></i> {{ Auth::user()->name }} <span class="caret"></span></a>							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
 							</ul>
 						</li>
@@ -85,6 +70,7 @@
 			</div>
 		</nav>
 		<div class="container">
+			@include('flash::message')
 			<!-- Contenido -->
 			@yield('content')
 		</div>

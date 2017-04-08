@@ -24,8 +24,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function roles()
+    public function Modulos()
     {
-        return $this->hasMany('App\Roles');
+        return $this->hasMany('App\Modulo');
+    }
+
+    public function estaAutorizado($modulo = false){
+      if($modulo){
+        return $this->Modulos()->where('modulo',$modulo)
+        ->count();
+      }else {
+        return true;
+      }
     }
 }

@@ -10,8 +10,11 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::auth();
+//Route::auth();
 //
+Route::get('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@showLoginForm']);
+Route::post('login', ['as' => 'auth.login', 'uses' => 'Auth\AuthController@login']);
+Route::get('logout', ['as' => 'auth.logout', 'uses' => 'Auth\AuthController@logout']);
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -29,5 +32,14 @@ Route::group(['middleware' => 'auth'], function () {
   });
   Route::group(['middleware' => 'roles:producto'], function () {
     Route::resource('producto', 'ProductoController');
+  });
+  Route::group(['middleware' => 'roles:mesa'], function () {
+    Route::resource('mesa', 'MesaController');
+  });
+  Route::group(['middleware' => 'roles:users'], function () {
+    Route::resource('users', 'UsersController');
+    //administracion de modulos
+    Route::post('users/borrarmodulo', 'UsersController@borrarModulo')->name('users.borrarmodulo');
+    Route::post('users/agregarmodulo', 'UsersController@agregarModulo')->name('users.agregarmodulo');
   });
 });

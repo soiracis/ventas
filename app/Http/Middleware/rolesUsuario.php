@@ -17,16 +17,8 @@ class rolesUsuario
      */
     public function handle($request, Closure $next, $modulo = false)
     {
-      if ($modulo) {
-        $mod = Auth::user()->roles()->where('modulo',$modulo)->first();
-        if(isset($mod)){
-          if(!$mod->autorizado){
-            return redirect('/');
-          }
-        }
-        else {
-          return redirect('/');
-        }
+      if(!Auth::user()->estaAutorizado($modulo)){
+        return redirect('/');
       }
       return $next($request);
     }

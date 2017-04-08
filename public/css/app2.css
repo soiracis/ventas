@@ -6,3 +6,15 @@
 		z-index: 1000;
 		opacity: 0.8;
 }
+.lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+.lista li {
+  display: inline;
+  padding: 5px 10px 5px 10px;
+  background: #eee;
+  border-radius: 5px;
+}

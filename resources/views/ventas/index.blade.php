@@ -38,12 +38,12 @@
 	<div class="container">
 			<div>
 				<div class="row">
-					<div class="col-xs-3 col-md-1">
+					<div class="col-xs-12 col-md-1">
 						<label>Fecha</label>
 						<br>
 						<span id='fecha'>01/dic/2016</span>
 					</div>
-					<div class="col-xs-3 col-md-2">
+					<div class="col-xs-6 col-md-2">
 						<div class="form-group">
 								<label>Mesa</label>
 								<span class="visible-print" id="mesa">GENERAL</span>
