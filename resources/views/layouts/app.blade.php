@@ -72,11 +72,10 @@
 					<ul class="nav navbar-nav navbar-right">
 						@if (Auth::guest())
 						<li><a href="{{ url('/login') }}" title="Iniciar sesión"><i class="fa fa-key"></i> Iniciar sesión</a></li>
-						<li><a href="{{ url('/') }}" title="Registrar"><i class="fa fa-user-plus"></i> Registrar</a></li>
+						<li><a href="{{ url('/register') }}" title="Registrar"><i class="fa fa-user-plus"></i> Registrar</a></li>
 						@else
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Salir"><i class="fa fa-unlock"></i> {{ Auth::user()->username }} <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Salir"><i class="fa fa-unlock"></i> {{ Auth::user()->username }} <span class="caret"></span></a>							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
 							</ul>
 						</li>
